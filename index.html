@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Interlinked Photobooth</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cormorant+SC:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+
+  <!-- SCREEN 1: HOME -->
+  <div id="s-home" class="screen active">
+    <div class="eyebrow">Interlinked</div>
+    <div class="enter-tag">the feeling of being connected <br> even when you're not physically together </div>
+    <div class="machine" onclick="goToSession()">
+      <div class="c-plate">
+        <div class="c-plate-screws"><span></span><span></span></div>
+        <span class="c-plate-title">Interlinked<br>Photobooth</span>
+        <div class="c-plate-min">min. 4½</div>
+      </div>
+      <div class="chrome-body">
+        <div class="chrome-int">
+          <div class="rail"></div>
+          <div class="home-slot">
+            <div class="h-frame"><div class="h-half">A</div><div class="h-div"></div><div class="h-half">B</div></div>
+            <div class="h-frame"><div class="h-half">A</div><div class="h-div"></div><div class="h-half">B</div></div>
+            <div class="h-frame"><div class="h-half">A</div><div class="h-div"></div><div class="h-half">B</div></div>
+            <div class="h-frame"><div class="h-half">A</div><div class="h-div"></div><div class="h-half">B</div></div>
+            <div class="h-foot"> Tiffany Tran <br> New York City</div>
+          </div>
+          <div class="rail"></div>
+        </div>
+      </div>
+    </div>
+    <div class="machine-cta">
+      <button class="enter-btn" onclick="goToSession()">Enter</button>
+  </div>
+</div>
+
+  <!-- SCREEN 2: SESSION CHOICE -->
+  <div id="s-session" class="screen">
+    <div class="sess-box">
+      <div class="sess-eyebrow"></div>
+      <div class="sess-title">Interlinked <br> Photobooth</div>
+      <div class="sess-grid">
+        <div class="s-card" onclick="createSession()">
+          <div class="sn"></div>
+          <h2>Create <br> Session</h2>
+          <p>Begin together. You will receive a code. Send it to the person you're thinking of.</p>
+        </div>
+        <div class="s-card" onclick="show('s-join')">
+          <div class="sn"></div>
+          <h2>Join <br> Session</h2>
+          <p>Enter the code and connect with them, from wherever you are.</p>
+        </div>
+      </div>
+      <div class="sess-solo-card" onclick="startSolo()">
+        <div class="solo-left">
+          <div class="sn"></div>
+          <h2>Solo <br> Session</h2>
+          <p>Enter by yourself. 4 acts, 1 camera.</p>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <span class="back-link" onclick="show('s-home')">Back</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: WAITING FOR PARTNER -->
+  <div id="s-waiting" class="screen">
+    <div style="max-width:480px;text-align:center">
+      <div class="sess-eyebrow" style="margin-bottom:.4rem">Session Code</div>
+      <div class="code-big" id="wait-code">——</div>
+      <div class="conn-badge waiting" id="conn-badge">
+        <span class="conn-dot"></span>
+        <span id="conn-txt">Initialising…</span>
+      </div>
+      <p style="font-family: 'Kommuna';font-size:.8rem;color:#b4b4b4;line-height:1.75;margin-bottom:1.5rem">
+        Share this code with your special person.<br>
+        They open this page and enter the code to join.
+      </p>
+      <span class="back-link" onclick="cancelWait()"> Cancel</span>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: JOIN -->
+  <div id="s-join" class="screen">
+    <div style="text-align:center;max-width:480px">
+      <div class="sess-eyebrow" style="margin-bottom:.5rem">Enter Session Code</div>
+      <input class="join-input" id="join-input" maxlength="4" placeholder="——" oninput="this.value=this.value.toUpperCase()">
+      <br>
+      <button class="btn" onclick="joinSession()">Join</button>
+      <button class="btn ghost" onclick="show('s-session')">Back</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: ORIENTATION PICKER -->
+  <div id="s-orient" class="screen">
+    <div class="orient-box">
+      <div class="sess-eyebrow" style="margin-bottom:1rem">Choose your frame</div>
+      <div class="orient-title">How do you want <br> to shoot?</div>
+      <div class="orient-sub">Your camera and photo strip will adapt to your choice</div>
+
+      <div class="orient-grid">
+        <!-- Horizontal -->
+        <div class="orient-card" id="oc-horiz" onclick="pickOrient('horiz')">
+          <div class="orient-preview">
+            <div class="fp h"></div>
+            <div class="fp h" style="opacity:.5"></div>
+          </div>
+          <div class="orient-label">Horizontal</div>
+          <div class="orient-desc">Wide frame, side-by-side<br>landscape composition</div>
+        </div>
+
+        <!-- Vertical -->
+        <div class="orient-card selected" id="oc-vert" onclick="pickOrient('vert')">
+          <div class="orient-preview">
+            <div class="fp v"></div>
+            <div class="fp v" style="opacity:.5"></div>
+          </div>
+          <div class="orient-label">Vertical</div>
+          <div class="orient-desc">Portrait frame, stacked<br>classic strip style</div>
+        </div>
+      </div>
+
+      <button class="btn" onclick="confirmOrient()">Continue</button>
+      <br>
+      <span class="back-link" onclick="show('s-session')" style="margin-top:1rem"> Back</span>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: SHOOT -->
+  <div id="s-shoot" class="screen">
+    <div class="shoot-inner">
+
+      <!-- Sync bar — floats at top via absolute positioning in CSS -->
+      <div class="sync-bar" id="sync-bar">
+        <span class="sync-dot" id="sync-you"></span>
+        <span>You</span>
+        <span id="sync-ctr" style="color:#2a2a2a">1 / 4</span>
+        <span>Partner</span>
+        <span class="sync-dot" id="sync-partner"></span>
+      </div>
+
+      <!-- Studio light bar -->
+      <div class="shoot-light-bar">
+        <div class="shoot-light-glow"></div>
+      </div>
+
+      <!-- Progress bar — full width of camera column -->
+      <div class="prog-track">
+        <div class="ps cur" id="ps0"></div>
+        <div class="ps" id="ps1"></div>
+        <div class="ps" id="ps2"></div>
+        <div class="ps" id="ps3"></div>
+      </div>
+
+      <!-- Three-column row: eye level | camera | instructions -->
+      <div class="shoot-row">
+
+        <!-- LEFT: eye level -->
+        <div class="shoot-side shoot-side-left">
+          <div class="shoot-eye-level">
+            <span class="shoot-eye-txt">Eye level</span>
+            <div class="shoot-eye-arrow"></div>
+          </div>
+        </div>
+
+        <!-- CENTER: camera stage — all original IDs preserved -->
+        <div class="shoot-center">
+          <div class="cam-stage horiz" id="cam-stage">
+            <div class="cam-half left" id="cam-left">
+              <div class="cam-lbl l" id="lbl-you">You</div>
+              <div class="cam-ph" id="ph-you"><div class="cam-ph-txt">Camera loading…</div></div>
+              <video id="vid-you" autoplay playsinline muted style="display:none"></video>
+            </div>
+            <div class="cam-half right" id="cam-right">
+              <div class="cam-lbl r" id="lbl-partner">Partner</div>
+              <div class="cam-ph" id="ph-partner"><div class="cam-ph-txt">Waiting…</div></div>
+              <video id="vid-partner" autoplay playsinline muted style="display:none"></video>
+            </div>
+            <div class="cam-div" id="cam-div"></div>
+            <div class="red-thread" id="red-thread"></div>
+            <div class="cd-stage"><div class="cd-dig" id="cd-dig">3</div></div>
+            <div class="flash-veil" id="flash-veil"></div>
+            <div class="live-badge" id="live-badge"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: prompt instructions -->
+        <div class="shoot-side shoot-side-right" id="shoot-instructions">
+          <div class="prompt-act" id="p-act">Act I</div>
+          <div class="shoot-prompt-sub" id="p-sub">Keep it simple</div>
+          <div class="shoot-prompt-txt" id="p-txt">Look into the lens.
+Relax your face.</div>
+        </div>
+
+      </div><!-- /shoot-row -->
+
+      <!-- Controls -->
+      <div class="shoot-ctrls">
+        <button class="btn" id="cap-btn" onclick="onCapture()">Take Photo</button>
+        <button class="btn ghost" onclick="exitShoot()">Exit</button>
+      </div>
+
+      <!-- Instructions toggle -->
+      <div class="shoot-toggle">
+        <label class="shoot-toggle-label">
+          <input type="checkbox" checked onchange="toggleInstructions(this.checked)">
+          <span>Show instructions</span>
+        </label>
+      </div>
+
+      <!-- Hidden prompt-blk kept for script.js compatibility -->
+      <div class="prompt-blk" style="display:none !important"></div>
+
+    </div>
+  </div>
+
+  <!-- SCREEN 7: STRIP DROP -->
+  <div id="s-drop" class="screen">
+    <div class="drop-inner">
+
+      <!-- Machine at top -->
+      <div class="drop-machine">
+        <div class="c-plate" style="width:220px">
+          <div class="c-plate-screws"><span></span><span></span></div>
+          <span class="c-plate-title">Interlinked<br>Photobooth</span>
+          <div class="c-plate-min">min. 4½</div>
+        </div>
+        <div class="drop-chrome">
+          <div class="drop-slot-body">
+            <div class="rail"></div>
+            <div class="drop-channel">
+              <div id="strip-travel-wrap"></div>
+            </div>
+            <div class="rail"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strip hangs out below the machine -->
+      <div class="strip-exit-zone">
+        <div id="strip-hang"></div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="drop-actions">
+        <button class="btn" id="dl-btn" onclick="downloadStrip()" disabled>Developing…</button>
+        <button class="btn ghost" onclick="reshoot()">Reshoot</button>
+        <button class="btn ghost" onclick="show('s-home')">Back</button>
+      </div>
+
+    </div>
+  </div>
+
+  <canvas id="cv-you" width="480" height="480"></canvas>
+  <canvas id="cv-partner" width="480" height="480"></canvas>
+  <canvas id="cv-render" width="480" height="960"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

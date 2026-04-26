@@ -1,0 +1,1337 @@
+@font-face {
+  font-family: "Kommuna";
+  src: url("fonts/Kommuna.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Billa Mount";
+  src: url("fonts/BillaMount.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Janda";
+  src: url("fonts/Janda.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Zai";
+  src: url("fonts/zai.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Jellyka Handwriting";
+  src: url("fonts/JellykaHandwriting.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Saint Andrews Queen";
+  src: url("fonts/Saint-AndrewsQueen.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Larissa Handwriting";
+  src: url("fonts/LarissaHandwriting.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kinga Handwriting";
+  src: url("fonts/KingaHandwriting.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kind Handwriting";
+  src: url("fonts/KindHandwriting.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Katy Font";
+  src: url("fonts/katyfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Studio De Hoop Handwriting";
+  src: url("fonts/HandwritingStudiodehoop.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Androgy";
+  src: url("fonts/Androgy.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Andale Mono";
+  src: url("fonts/AndaleMono.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Akc Handwriting";
+  src: url("fonts/AkcHandwriting.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AC Thermes";
+  src: url("fonts/ACThermes.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Akc Handwriting";
+  src: url("fonts/AkcHandwriting.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABC ROM Mono Light Italic";
+  src: url("fonts/ABCROMMono-LightItalic.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABC ROM Mono Light";
+  src: url("fonts/ABCROMMono-Light.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABC ROM Mono Light Italic";
+  src: url("fonts/ABCROMMono-LightItalic.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABC ROM Mono Book Italic";
+  src: url("ABCROMMono-BookItalic.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABC ROM Mono Book";
+  src: url("ABCROMMono-Book.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABC ROM Mono Bold";
+  src: url("ABCROMMono-Bold.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABC ROM Mono Bold Italic";
+  src: url("ABCROMMono-BoldItalic.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --red: #8B1A1A;
+  --red-d: #6b1010;
+  --red-l: #a02020;
+  --cream: #f5f0e8;
+  --ink: #f0ece4;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  font-family: 'Kommuna';
+  background: var(--red);
+  color: var(--ink);
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.screen {
+  display: none;
+  width: 100%;
+  height: 100dvh;
+  flex-direction: column;
+}
+
+.screen.active {
+  display: flex;
+}
+
+.btn {
+  background: transparent;
+  border: 1px solid #3a3a3a;
+  color: var(--ink);
+  font-family: 'Kommuna';
+  text-transform: uppercase;
+  font-size: 0.98rem;
+  font-weight: 100;
+  padding: .62rem 2rem;
+  cursor: pointer;
+  transition: all .2s;
+  margin: 0.5rem;
+}
+
+.btn:hover {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #000;
+}
+
+.btn:disabled {
+  opacity: .3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.btn.ghost {
+  border-color: #1e1e1e;
+  color: #bbbb;
+}
+
+.btn.ghost:hover {
+  border-color: #3a3a3a;
+  background: transparent;
+  color: var(--ink);
+}
+
+/* ── HOME ── */
+#s-home {
+  background:
+    radial-gradient(ellipse at 25% 20%, #b02525 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 80%, #5a0e0e 0%, transparent 50%),
+    var(--red);
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem 5rem;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  padding-top: max(3rem, env(safe-area-inset-top));
+  padding-bottom: max(5rem, env(safe-area-inset-bottom));
+}
+
+.eyebrow {
+  font-family: 'Kommuna';
+  font-size: 12px;
+  letter-spacing: .05em;
+  color: rgba(255, 210, 200, .7);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform .3s;
+}
+
+.machine:hover {
+  transform: translateY(-4px);
+}
+
+.c-plate {
+  background: linear-gradient(160deg, #f0ead8, #e8e0c8, #d8d0b0);
+  border: 1px solid #b8b090;
+  padding: 10px 26px 9px;
+  text-align: center;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .5);
+  position: relative;
+  z-index: 2;
+  margin-bottom: -1px;
+  margin-top: 50px;
+}
+
+.c-plate-screws {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.c-plate-screws span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ddd, #888);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .4);
+}
+
+.c-plate-title {
+  font-family: 'Billa Mount';
+  font-size: 20px;
+  letter-spacing: .12em;
+  color: #1a1a1a;
+  line-height: 1.8;
+  display: block;
+}
+
+.c-plate-min {
+  font-family: 'Kommuna';
+  font-size: 11px;
+  font-style: italic;
+  color: #555;
+  margin-top: 10px;
+}
+
+.chrome-body {
+  width: 190px;
+  background: linear-gradient(135deg, #aaa 0%, #e8e8e8 18%, #c0c0c0 35%, #f5f5f5 50%, #b8b8b8 65%, #e0e0e0 82%, #a8a8a8 100%);
+  padding: 10px;
+  box-shadow: 0 8px 36px rgba(0, 0, 0, .8), inset 0 1px 0 rgba(255, 255, 255, .55);
+}
+
+.chrome-int {
+  background: #120e0e;
+  padding: 10px 6px;
+  display: flex;
+  gap: 5px;
+  min-height: 290px;
+  overflow: hidden;
+}
+
+.rail {
+  width: 7px;
+  flex-shrink: 0;
+  align-self: stretch;
+  background: linear-gradient(90deg, #3a3a3a, #999, #555, #bbb, #555);
+  border-radius: 1px;
+}
+
+.home-slot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.h-frame {
+  width: 100%;
+  aspect-ratio: 1/.82;
+  background: #0d0d0d;
+  display: flex;
+}
+
+.h-half {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Kommuna';
+  font-size: 9px;
+  color: #1a1a1a;
+  letter-spacing: .1em;
+}
+
+.h-div {
+  width: 1px;
+  background: #000;
+  flex-shrink: 0;
+}
+
+.h-foot {
+  padding: 3px 2px 4px;
+  text-align: center;
+  font-family: 'Saint Andrews Queen';
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: #787878;
+  border-top: .5px solid #1a1a1a;
+  margin-top: 2px;
+}
+
+.machine-cta {
+  margin-top: 65px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.enter-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'Kommuna';
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.98rem;
+  font-weight: 100;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity .3s ease, color .3s ease;
+}
+
+.enter-btn:hover {
+  color: rgba(255, 220, 210, 1);
+  opacity: 1;
+}
+
+.enter-tag {
+  font-family: 'Kommuna';
+  font-size: .65rem;
+  color: rgba(255, 200, 190, .7);
+  margin-top: .7rem;
+  letter-spacing: .04em;
+  text-align: center;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── SESSION ── */
+#s-session,
+#s-waiting,
+#s-join,
+#s-orient,
+#s-shoot,
+#s-drop {
+  background: #000;
+  height: 100dvh;
+}
+
+#s-session {
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  overflow-y: auto;
+  overscroll-behavior: none;
+}
+
+.sess-box {
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+}
+
+.sess-eyebrow {
+  font-family: 'Kommuna';
+  font-size: 10px;
+  letter-spacing: .05em;
+  color: #a6a5a5;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+}
+
+.sess-title {
+  font-family: 'Billa Mount';
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: .15em;
+  line-height: 2em;
+  margin-bottom: 2rem;
+}
+
+.sess-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  margin-bottom: 1px;
+}
+
+.sess-solo-card {
+  background: #000;
+  padding: 1.6rem 1.5rem;
+  cursor: pointer;
+  border: 1px solid #1a1a1a;
+  border-top: none;
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: background .2s;
+}
+
+.sess-solo-card:hover {
+  background: #0a0a0a;
+}
+
+.sess-solo-card .solo-left {
+  text-align: center;
+}
+
+.s-card {
+  background: #000;
+  padding: 1.8rem 1.2rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background .2s;
+}
+
+.s-card:hover {
+  background: #0c0c0c;
+}
+
+.sn {
+  font-family: 'Kommuna';
+  letter-spacing: -0.05em;
+  font-size: 9px;
+  color: #222;
+  margin-bottom: .6rem;
+}
+
+.s-card h2,
+.sess-solo-card h2 {
+  font-family: 'Kommuna';
+  text-transform: uppercase;
+  font-size: 1.15rem;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  line-height: 1.2em;
+}
+
+.s-card p,
+.sess-solo-card p {
+  font-size: .7rem;
+  color: #a6a5a5;
+  line-height: 1.6;
+}
+
+.sa {
+  font-size: 1.1rem;
+  color: #1e1e1e;
+  margin-top: .7rem;
+  transition: color .2s;
+  flex-shrink: 0;
+}
+
+.s-card:hover .sa,
+.sess-solo-card:hover .sa {
+  color: var(--ink);
+}
+
+.back-link {
+  font-family: 'Kommuna';
+  text-transform: uppercase;
+  font-size: 0.98rem;
+  color: #bbbbbb;
+  cursor: pointer;
+  transition: color .2s;
+  margin-top: 1.5rem;
+  display: inline-block;
+}
+
+.back-link:hover {
+  color: #ffffff;
+}
+
+/* ── WAITING ── */
+#s-waiting {
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.code-big {
+  font-family: 'Kommuna';
+  font-size: 4.5rem;
+  letter-spacing: .6em;
+  color: var(--ink);
+  margin: 1.5rem 0;
+}
+
+.conn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: 'Kommuna';
+  font-size: 9px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: #b4b4b4;
+  padding: .4rem .9rem;
+  border: 1px solid #181818;
+  margin-bottom: 1.5rem;
+}
+
+.conn-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b4b4b4;
+  flex-shrink: 0;
+  transition: background .3s;
+}
+
+.conn-badge.waiting .conn-dot {
+  animation: blink 2s infinite;
+}
+
+.conn-badge.connected .conn-dot {
+  background: var(--ink);
+}
+
+.conn-badge.error .conn-dot {
+  background: var(--red-l);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .12; }
+}
+
+/* ── JOIN ── */
+#s-join {
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.join-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #3a3a3a;
+  color: var(--ink);
+  font-family: 'Kommuna';
+  font-size: 3rem;
+  letter-spacing: .6em;
+  text-align: center;
+  width: 260px;
+  padding: .5rem;
+  outline: none;
+  transition: border-color .2s;
+  text-transform: uppercase;
+  margin: 1.5rem 0 2rem;
+}
+
+.join-input:focus {
+  border-color: #666;
+}
+
+/* ── ORIENTATION PICKER ── */
+#s-orient {
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.orient-box {
+  width: 100%;
+  max-width: 480px;
+}
+
+.orient-title {
+  font-family: 'Saint Andrews Queen';
+  line-height: 3.5rem;
+  font-size: 3.7rem;
+  margin-bottom: .5rem;
+  margin-top: 50px;
+}
+
+.orient-sub {
+  font-family: 'Kommuna';
+  font-size: .78rem;
+  color: #a6a5a5;
+  margin-bottom: 2.5rem;
+  margin-top: 50px;
+}
+
+.orient-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 2rem;
+}
+
+.orient-card {
+  border: 1px solid #1e1e1e;
+  padding: 1.8rem 1rem 1.4rem;
+  cursor: pointer;
+  transition: border-color .25s, background .25s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.orient-card:hover {
+  border-color: #444;
+  background: #080808;
+}
+
+.orient-card.selected {
+  border-color: var(--ink);
+  background: #0a0a0a;
+}
+
+.orient-preview {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.orient-preview .fp {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  flex-shrink: 0;
+}
+
+.orient-preview .fp.h { width: 44px; height: 30px; }
+.orient-preview .fp.v { width: 26px; height: 40px; }
+
+.orient-label {
+  font-family: 'Kommuna';
+  font-size: 10px;
+  color: #a6a5a5;
+  text-transform: uppercase;
+}
+
+.orient-desc {
+  font-size: .75rem;
+  color: #a6a5a5;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+}
+
+/* ════════════════════════════════════════════════════
+   SHOOT SCREEN
+   Layout: sync-bar (absolute top) → light bar →
+           progress bar → [eye-level | camera | prompts] →
+           buttons → checkbox
+   ════════════════════════════════════════════════════ */
+
+#s-shoot {
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.shoot-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+/* Sync bar — floats at very top */
+.sync-bar {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  font-family: 'Kommuna';
+  font-size: 9px;
+  letter-spacing: .3em;
+  color: #252525;
+  text-transform: uppercase;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.sync-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #181818;
+  transition: background .3s;
+}
+
+.sync-dot.ready {
+  background: var(--ink);
+}
+
+/* Studio light bar — shorter than progress bar by 3/4 segment each side.
+   Progress bar = 720px, 4 segments → 1 segment = 180px, 3/4 = 135px each side.
+   So light width = 720 - 270 = 450px. Slightly taller than before. */
+.shoot-light-bar {
+  width: 550px;
+  max-width: 65vw;
+  background: linear-gradient(
+    to bottom,
+    #696868 0%, #b5b5b5 18%, #f0f0f0 40%, #ebebeb 60%, #aeaeae 82%, #686767 100%
+  );
+  padding: 7px 9px;
+  margin-bottom: 2.4rem; /* 2-3× the previous .8rem gap → ~3× */
+  flex-shrink: 0;
+}
+
+.shoot-light-glow {
+  height: 48px;
+  background: radial-gradient(
+    ellipse 70% 100% at 50% 50%,
+    #ffffff   0%,
+    #ffffff   22%,
+    #fffffb   42%,
+    #fffef2   60%,
+    #fffce8   76%,
+    rgba(255, 252, 220, 0.4) 90%,
+    rgba(255, 252, 220, 0)  100%
+  );
+  border-radius: 3px;
+}
+
+/* Progress bar — full camera column width */
+.prog-track {
+  width: 720px;
+  max-width: 90vw;
+  display: flex;
+  gap: 3px;
+  margin-bottom: 2.4rem; /* 2-3× the previous .8rem → same gap to camera */
+  flex-shrink: 0;
+}
+
+.ps {
+  flex: 1;
+  height: 1px;
+  background: #181818;
+  transition: background .4s;
+}
+
+.ps.done { background: var(--ink); }
+.ps.cur  { background: #444; }
+
+/* Three-column row */
+.shoot-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 0;
+}
+
+/* Side panels — fixed width so camera stays truly centered */
+.shoot-side {
+  width: 160px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.shoot-side-left {
+  align-items: flex-end;
+  padding-right: 16px;
+}
+
+.shoot-side-right {
+  align-items: flex-start;
+  padding-left: 16px;
+}
+
+/* Eye level (left panel) */
+.shoot-eye-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.shoot-eye-txt {
+  font-family: 'Kommuna';
+  text-transform: uppercase;
+  font-size: 9px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.shoot-eye-arrow {
+  width: 80px;
+  height: 1px;
+  background: #fff;
+  position: relative;
+  align-self: stretch;
+}
+
+.shoot-eye-arrow::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid #fff;
+  border-top: 1.5px solid #fff;
+  transform: rotate(45deg);
+}
+
+/* Center camera column */
+.shoot-center {
+  flex-shrink: 0;
+  width: 620px;
+  max-width: calc(100vw - 320px); /* leave room for side panels */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Camera stage — identical rules to original */
+.cam-stage {
+  position: relative;
+  overflow: hidden;
+  background: #060606;
+  border: transparent;
+  width: 100%;
+}
+
+.cam-stage.horiz { aspect-ratio: 16/9; }
+
+.cam-stage.vert {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 9/14;
+  align-self: center;
+}
+
+.cam-half {
+  position: absolute;
+  overflow: hidden;
+}
+
+.cam-stage.horiz .cam-half { top: 0; bottom: 0; width: 50%; }
+.cam-stage.horiz .cam-half.left  { left: 0; }
+.cam-stage.horiz .cam-half.right { right: 0; }
+
+.cam-stage.vert .cam-half { left: 0; right: 0; height: 50%; }
+.cam-stage.vert .cam-half.left  { top: 0; }
+.cam-stage.vert .cam-half.right { bottom: 0; }
+
+.cam-half video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%) contrast(1.25) brightness(.92);
+}
+
+.cam-stage.horiz .cam-half.left video { transform: scaleX(-1); }
+.cam-stage.vert  .cam-half.left video { transform: scaleX(-1); }
+
+.cam-ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #060606;
+}
+
+.cam-ph-txt {
+  font-family: 'Kommuna';
+  font-size: 8px;
+  letter-spacing: .4em;
+  color: #1a1a1a;
+  text-transform: uppercase;
+}
+
+.cam-lbl {
+  position: absolute;
+  font-family: 'Kommuna';
+  font-size: 8px;
+  letter-spacing: .3em;
+  color: rgba(255, 255, 255, .15);
+  text-transform: uppercase;
+  z-index: 12;
+}
+
+.cam-stage.horiz .cam-lbl.l { top: 10px; left: 12px; }
+.cam-stage.horiz .cam-lbl.r { top: 10px; right: 12px; }
+.cam-stage.vert  .cam-lbl.l { top: 10px; left: 12px; }
+.cam-stage.vert  .cam-lbl.r { bottom: calc(50% + 10px); left: 12px; }
+
+.cam-div {
+  position: absolute;
+  background: #000;
+  z-index: 10;
+}
+
+.cam-stage.horiz .cam-div {
+  left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%);
+}
+
+.cam-stage.vert .cam-div {
+  top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%);
+}
+
+.red-thread { position: absolute; z-index: 11; }
+
+.cam-stage.horiz .red-thread {
+  left: 50%; top: 18%; height: 64%; width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, transparent, rgba(139, 26, 26, .6) 25%, rgba(139, 26, 26, .6) 75%, transparent);
+}
+
+.cam-stage.vert .red-thread {
+  top: 50%; left: 18%; width: 64%; height: 1px;
+  transform: translateY(-50%);
+  background: linear-gradient(to right, transparent, rgba(139, 26, 26, .6) 25%, rgba(139, 26, 26, .6) 75%, transparent);
+}
+
+.cam-stage.solo .cam-half.left {
+  width: 100%; height: 100%; top: 0; left: 0; bottom: auto; right: auto;
+}
+
+.cam-stage.solo .cam-div,
+.cam-stage.solo .red-thread { display: none; }
+
+.cd-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.cd-dig {
+  font-family: 'Kommuna';
+  font-size: 6rem;
+  font-weight: 300;
+  color: #fff;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, .75);
+  opacity: 0;
+  transform: scale(1.25);
+  transition: opacity .12s, transform .12s;
+}
+
+.cd-dig.show { opacity: 1; transform: scale(1); }
+
+.flash-veil {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  transition: opacity .04s;
+}
+
+.flash-veil.flash { opacity: .95; }
+
+.live-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-family: 'Kommuna';
+  font-size: 7px;
+  letter-spacing: .3em;
+  color: rgba(255, 255, 255, .18);
+  z-index: 12;
+  text-transform: uppercase;
+}
+
+/* Prompt text (right panel) */
+.prompt-act {
+  font-family: 'Kommuna';
+  font-size: 9px;
+  letter-spacing: .4em;
+  color: #a6a5a5;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.shoot-prompt-sub {
+  font-family: 'Kommuna';
+  font-size: 13px;
+  letter-spacing: .14em;
+  color: var(--ink);
+  text-transform: uppercase;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.shoot-prompt-txt {
+  font-family: 'Kommuna';
+  font-size: 11px;
+  color: #a6a5a5;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+/* Hidden state when checkbox unchecked */
+.shoot-side-right.shoot-hidden {
+  visibility: hidden;
+}
+
+/* Controls — gap matches original (generous space below camera) */
+.shoot-ctrls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1.8rem;
+}
+
+/* Instructions toggle */
+.shoot-toggle {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.shoot-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: 'Kommuna';
+  font-size: 9px;
+  letter-spacing: .05em;
+  color: #c5c5c5;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+}
+
+.shoot-toggle-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 9px;
+  height: 9px;
+  border: 1px solid #333;
+  background: #c5c5c5;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.shoot-toggle-label input[type="checkbox"]:checked { background: #444; }
+
+/* prompt-blk hidden (legacy compat) */
+.prompt-blk { display: none !important; }
+
+/* ── STRIP DROP SCREEN ── */
+#s-drop {
+  background: #000;
+  align-items: center;
+  padding: 0 1rem 3rem;
+  overflow-y: auto;
+  overscroll-behavior: none;
+}
+
+.drop-inner {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.drop-machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 2rem;
+}
+
+.drop-chrome {
+  width: 220px;
+  background: linear-gradient(135deg, #aaa 0%, #e8e8e8 18%, #c0c0c0 35%, #f5f5f5 50%, #b8b8b8 65%, #e0e0e0 82%, #a8a8a8 100%);
+  padding: 10px;
+  box-shadow: 0 10px 44px rgba(0, 0, 0, .88), inset 0 1px 0 rgba(255, 255, 255, .55);
+}
+
+.drop-slot-body {
+  background: #120e0e;
+  padding: 10px 6px;
+  display: flex;
+  gap: 5px;
+  height: 130px;
+  overflow: visible;
+  position: relative;
+  clip-path: inset(0);
+}
+
+.drop-channel {
+  flex: 1;
+  position: relative;
+  overflow: visible;
+}
+
+#strip-travel-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+  transition: transform 4s cubic-bezier(.15, .85, .3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#strip-travel-wrap.drop {
+  transform: translateY(140px);
+}
+
+.strip-exit-zone {
+  width: 220px;
+  min-height: 10px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+#strip-hang {
+  width: 160px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .8s, transform .8s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#strip-hang.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.strip-stamp {
+  padding: 5px 6px 4px;
+  text-align: center;
+  font-family: 'Kommuna';
+  font-size: 6px;
+  font-style: italic;
+  letter-spacing: .15em;
+  color: #888;
+  border-top: .5px solid #d8d0c0;
+  line-height: 1.6;
+  background: var(--cream);
+}
+
+.strip-paper {
+  background: var(--cream);
+  padding: 5px 5px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 6px 26px rgba(0, 0, 0, .72);
+  width: 100%;
+}
+
+.s-frame {
+  width: 100%;
+  overflow: hidden;
+  background: #111;
+  position: relative;
+  display: flex;
+}
+
+.s-half {
+  flex: 1;
+  overflow: hidden;
+}
+
+.s-half img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%) contrast(1.3) brightness(.9);
+}
+
+.s-hdiv {
+  width: 1px;
+  background: #000;
+  flex-shrink: 0;
+}
+
+.s-frame.vert-split {
+  flex-direction: column;
+}
+
+.s-frame.vert-split .s-half {
+  flex: none;
+  height: 50%;
+}
+
+.s-hdiv-h {
+  height: 1px;
+  background: #000;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.s-solo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%) contrast(1.3) brightness(.9);
+}
+
+.strip-foot {
+  padding: 4px 4px 5px;
+  text-align: center;
+  font-family: 'Kommuna';
+  font-size: 5.5px;
+  letter-spacing: .25em;
+  color: #888;
+  border-top: .5px solid #ccc;
+  margin-top: 2px;
+}
+
+.drop-actions {
+  display: flex;
+  gap: .6rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+#cv-you,
+#cv-partner,
+#cv-render {
+  display: none;
+}

@@ -1,0 +1,223 @@
+.screen {
+  width: 100%;
+  height: 100dvh;
+}
+
+/* ── Black screens ── */
+@media (max-width: 480px) {
+  #s-session,
+  #s-waiting,
+  #s-join,
+  #s-orient,
+  #s-shoot,
+  #s-drop {
+    background: #000;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* ── Home screen ── */
+#s-home {
+  background: #8B1A1A;
+  overflow: hidden;
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
+.s-card h2,
+.sess-solo-card h2 {
+  font-size: 1rem;
+  line-height: 1.4em;
+  margin-bottom: 0.8rem;
+}
+
+/* ── HOME: compact to fit screen ── */
+@media (max-width: 480px) {
+  #s-home {
+    padding: 1.6rem 1rem 2rem;
+    justify-content: center;
+  }
+
+  #s-home .eyebrow {
+    margin-bottom: 0.8rem;
+    font-size: 10px;
+  }
+
+  #s-home .enter-tag {
+    font-size: 0.6rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0;
+  }
+
+  .chrome-body {
+    width: 158px;
+  }
+
+  .chrome-int {
+    min-height: 220px;
+  }
+
+  .c-plate {
+    margin-top: 28px;
+    padding: 8px 18px 7px;
+  }
+
+  .c-plate-title {
+    font-size: 17px;
+  }
+
+  .machine-cta {
+    margin-top: 28px;
+  }
+}
+
+/* ── SESSION ── */
+@media (max-width: 480px) {
+  #s-session {
+    padding: 2rem 1rem 2.5rem;
+  }
+
+  .sess-title {
+    font-size: 2rem;
+    line-height: 2em;
+    margin-bottom: 1.4rem;
+  }
+
+  .s-card p,
+  .sess-solo-card p {
+    font-size: 0.65rem;
+  }
+
+  #s-orient {
+    padding: 2rem 1rem 2rem;
+  }
+
+  .orient-title {
+    font-size: 3.5rem;
+    line-height: 2.8rem;
+    margin-top: 24px;
+  }
+
+  .orient-sub {
+    font-size: 0.7rem;
+    margin-top: 20px;
+    margin-bottom: 1.8rem;
+  }
+}
+
+/* ── SHOOT ── */
+@media (max-width: 480px) {
+  #s-shoot {
+    padding: 0.8rem 0.75rem 1rem;
+  }
+
+  .prompt-blk {
+    padding: 0.65rem 1rem;
+  }
+
+  .prompt-txt {
+    font-size: 0.72rem;
+  }
+
+  .prompt-sub {
+    font-size: 0.62rem;
+  }
+
+  .shoot-ctrls .btn {
+    font-size: 1rem;
+    padding: 0.5rem 1.4rem;
+  }
+
+  .sync-bar {
+    font-size: 8px;
+    gap: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prog-track {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ── DROP / STRIP ── */
+@media (max-width: 480px) {
+  #s-drop {
+    padding: 0 0.75rem 1.5rem;
+  }
+
+  .drop-machine {
+    padding-top: 1rem;
+  }
+
+  .drop-chrome {
+    width: 188px;
+  }
+
+  .drop-slot-body {
+    height: 110px;
+  }
+
+  .strip-exit-zone {
+    width: 188px;
+  }
+
+  #strip-hang {
+    width: 140px;
+  }
+
+  .drop-actions {
+    margin-top: 1.2rem;
+    gap: 0.4rem;
+  }
+
+  .drop-actions .btn {
+    font-size: 1.4rem;
+    padding: 0.5rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #s-session,
+  #s-waiting,
+  #s-join,
+  #s-orient,
+  #s-shoot,
+  #s-drop {
+    background: #000;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* ── iPhone SE / short screens ── */
+@media (max-width: 390px) and (max-height: 700px) {
+  #s-home {
+    padding: 1rem 0.75rem 1.2rem;
+  }
+
+  .chrome-body {
+    width: 140px;
+  }
+
+  .chrome-int {
+    min-height: 180px;
+  }
+
+  .c-plate-title {
+    font-size: 15px;
+  }
+
+  .machine-cta {
+    margin-top: 16px;
+  }
+
+  .orient-title {
+    font-size: 2.2rem;
+    line-height: 2.3rem;
+  }
+
+  .sess-title {
+    font-size: 1.7rem;
+  }
+}
