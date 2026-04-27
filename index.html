@@ -4,10 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Interlinked Photobooth</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cormorant+SC:wght@300;400;600&display=swap" rel="stylesheet">
-
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="mobile.css">
@@ -17,7 +15,7 @@
   <!-- SCREEN 1: HOME -->
   <div id="s-home" class="screen active">
     <div class="eyebrow">Interlinked</div>
-    <div class="enter-tag">the feeling of being connected <br> even when you're not physically together </div>
+    <div class="enter-tag">the feeling of being connected <br> even when you're not physically together</div>
     <div class="machine" onclick="goToSession()">
       <div class="c-plate">
         <div class="c-plate-screws"><span></span><span></span></div>
@@ -32,7 +30,7 @@
             <div class="h-frame"><div class="h-half">A</div><div class="h-div"></div><div class="h-half">B</div></div>
             <div class="h-frame"><div class="h-half">A</div><div class="h-div"></div><div class="h-half">B</div></div>
             <div class="h-frame"><div class="h-half">A</div><div class="h-div"></div><div class="h-half">B</div></div>
-            <div class="h-foot"> Tiffany Tran <br> New York City</div>
+            <div class="h-foot">Tiffany Tran <br> New York City</div>
           </div>
           <div class="rail"></div>
         </div>
@@ -40,8 +38,8 @@
     </div>
     <div class="machine-cta">
       <button class="enter-btn" onclick="goToSession()">Enter</button>
+    </div>
   </div>
-</div>
 
   <!-- SCREEN 2: SESSION CHOICE -->
   <div id="s-session" class="screen">
@@ -82,11 +80,11 @@
         <span class="conn-dot"></span>
         <span id="conn-txt">Initialising…</span>
       </div>
-      <p style="font-family: 'Kommuna';font-size:.8rem;color:#b4b4b4;line-height:1.75;margin-bottom:1.5rem">
+      <p style="font-family:'Kommuna';font-size:.8rem;color:#b4b4b4;line-height:1.75;margin-bottom:1.5rem">
         Share this code with your special person.<br>
         They open this page and enter the code to join.
       </p>
-      <span class="back-link" onclick="cancelWait()"> Cancel</span>
+      <span class="back-link" onclick="cancelWait()">Cancel</span>
     </div>
   </div>
 
@@ -107,9 +105,7 @@
       <div class="sess-eyebrow" style="margin-bottom:1rem">Choose your frame</div>
       <div class="orient-title">How do you want <br> to shoot?</div>
       <div class="orient-sub">Your camera and photo strip will adapt to your choice</div>
-
       <div class="orient-grid">
-        <!-- Horizontal -->
         <div class="orient-card" id="oc-horiz" onclick="pickOrient('horiz')">
           <div class="orient-preview">
             <div class="fp h"></div>
@@ -118,8 +114,6 @@
           <div class="orient-label">Horizontal</div>
           <div class="orient-desc">Wide frame, side-by-side<br>landscape composition</div>
         </div>
-
-        <!-- Vertical -->
         <div class="orient-card selected" id="oc-vert" onclick="pickOrient('vert')">
           <div class="orient-preview">
             <div class="fp v"></div>
@@ -129,18 +123,91 @@
           <div class="orient-desc">Portrait frame, stacked<br>classic strip style</div>
         </div>
       </div>
-
       <button class="btn" onclick="confirmOrient()">Continue</button>
       <br>
-      <span class="back-link" onclick="show('s-session')" style="margin-top:1rem"> Back</span>
+      <span class="back-link" onclick="show('s-session')" style="margin-top:1rem">Back</span>
+    </div>
+  </div>
+
+  <!-- SCREEN 5b: MODE PICKER (duet only, shown every session) -->
+  <div id="s-mode" class="screen">
+    <div class="sess-box">
+      <div class="sess-eyebrow" style="margin-bottom:2rem">How should it look?</div>
+      <div class="sess-title" style="font-size:2rem;line-height:2.8rem;margin-bottom:2rem">Choose your<br>photo style</div>
+      <div class="sess-grid" style="margin-bottom:1.8rem">
+        <div class="s-card" onclick="pickMode('classic')">
+          <div class="sn"></div>
+          <h2>Classic</h2>
+          <p>Both your backgrounds stay in. Split-frame, immediate, no waiting.</p>
+        </div>
+        <div class="s-card" onclick="pickMode('together')">
+          <div class="sn"></div>
+          <h2>Together</h2>
+          <p>Backgrounds removed. You're placed on a shared space — like you're actually there.</p>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <span class="back-link" onclick="show('s-orient')">Back</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5c: POSITIONING GUIDE (together mode — shown to BOTH people) -->
+  <div id="s-guide" class="screen">
+    <div class="guide-box">
+      <div class="sess-eyebrow" style="margin-bottom:1.2rem">Before you shoot</div>
+      <div class="guide-title">How to position<br>yourself</div>
+      <div class="guide-sub">So it looks like you're standing together</div>
+
+      <div class="guide-steps">
+        <div class="guide-step">
+          <div class="guide-step-num">01</div>
+          <div class="guide-step-body">
+            <div class="guide-step-title">Stand against a plain background</div>
+            <div class="guide-step-desc">A solid wall. No windows, no shelves.</div>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="guide-step-num">02</div>
+          <div class="guide-step-body">
+            <div class="guide-step-title">Stand an arm's length from your camera</div>
+            <div class="guide-step-desc">Waist up should be visible. Not just your face — your body language is part of the photo.</div>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="guide-step-num">03</div>
+          <div class="guide-step-body">
+            <div class="guide-step-title">Center yourself. Same height as them.</div>
+            <div class="guide-step-desc">Head at the same level as your partner's. Room on all sides of you in frame.</div>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="guide-step-num">04</div>
+          <div class="guide-step-body">
+            <div class="guide-step-title">Good light, on your face</div>
+            <div class="guide-step-desc">Face a window or lamp. Not behind you.</div>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="guide-step-num">05</div>
+          <div class="guide-step-body">
+            <div class="guide-step-title">Both click ready to begin</div>
+            <div class="guide-step-desc">The shoot starts when you've both pressed the button below.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- id added so JS can update button state -->
+      <button class="btn" id="guide-ready-btn" onclick="guideReady()" style="margin-top:1.5rem">We're ready</button>
+      <br>
+      <span class="back-link" onclick="show('s-mode')" style="margin-top:.8rem">Back</span>
     </div>
   </div>
 
   <!-- SCREEN 6: SHOOT -->
   <div id="s-shoot" class="screen">
-    <div class="shoot-inner">
+    <div class="shoot-inner" id="shoot-inner-wrap">
 
-      <!-- Sync bar — floats at top via absolute positioning in CSS -->
       <div class="sync-bar" id="sync-bar">
         <span class="sync-dot" id="sync-you"></span>
         <span>You</span>
@@ -149,12 +216,10 @@
         <span class="sync-dot" id="sync-partner"></span>
       </div>
 
-      <!-- Studio light bar -->
       <div class="shoot-light-bar">
         <div class="shoot-light-glow"></div>
       </div>
 
-      <!-- Progress bar — full width of camera column -->
       <div class="prog-track">
         <div class="ps cur" id="ps0"></div>
         <div class="ps" id="ps1"></div>
@@ -162,10 +227,8 @@
         <div class="ps" id="ps3"></div>
       </div>
 
-      <!-- Three-column row: eye level | camera | instructions -->
       <div class="shoot-row">
 
-        <!-- LEFT: eye level -->
         <div class="shoot-side shoot-side-left">
           <div class="shoot-eye-level">
             <span class="shoot-eye-txt">Eye level</span>
@@ -173,7 +236,6 @@
           </div>
         </div>
 
-        <!-- CENTER: camera stage — all original IDs preserved -->
         <div class="shoot-center">
           <div class="cam-stage horiz" id="cam-stage">
             <div class="cam-half left" id="cam-left">
@@ -194,23 +256,27 @@
           </div>
         </div>
 
-        <!-- RIGHT: prompt instructions -->
+        <!-- RIGHT: ambient tip + prompts -->
         <div class="shoot-side shoot-side-right" id="shoot-instructions">
+          <!-- Shown only in together mode duet — always visible all 4 acts -->
+          <div class="shoot-ambient-tip" id="shoot-ambient-tip" style="display:none">
+            Same distance · centered · heads level<br>
+            Turn slightly inward. Not a profile.<br>
+            Face a light source if you can.
+          </div>
           <div class="prompt-act" id="p-act">Act I</div>
           <div class="shoot-prompt-sub" id="p-sub">Keep it simple</div>
           <div class="shoot-prompt-txt" id="p-txt">Look into the lens.
 Relax your face.</div>
         </div>
 
-      </div><!-- /shoot-row -->
+      </div>
 
-      <!-- Controls -->
       <div class="shoot-ctrls">
         <button class="btn" id="cap-btn" onclick="onCapture()">Take Photo</button>
         <button class="btn ghost" onclick="exitShoot()">Exit</button>
       </div>
 
-      <!-- Instructions toggle -->
       <div class="shoot-toggle">
         <label class="shoot-toggle-label">
           <input type="checkbox" checked onchange="toggleInstructions(this.checked)">
@@ -218,9 +284,7 @@ Relax your face.</div>
         </label>
       </div>
 
-      <!-- Hidden prompt-blk kept for script.js compatibility -->
       <div class="prompt-blk" style="display:none !important"></div>
-
     </div>
   </div>
 
@@ -228,7 +292,6 @@ Relax your face.</div>
   <div id="s-drop" class="screen">
     <div class="drop-inner">
 
-      <!-- Machine at top -->
       <div class="drop-machine">
         <div class="c-plate" style="width:220px">
           <div class="c-plate-screws"><span></span><span></span></div>
@@ -246,12 +309,16 @@ Relax your face.</div>
         </div>
       </div>
 
-      <!-- Strip hangs out below the machine -->
       <div class="strip-exit-zone">
         <div id="strip-hang"></div>
       </div>
 
-      <!-- Action buttons -->
+      <!-- Developing progress — together mode only -->
+      <div class="developing-progress" id="developing-progress" style="display:none">
+        <span class="dev-dot"></span>
+        <span class="dev-status" id="developing-status">Removing backgrounds…</span>
+      </div>
+
       <div class="drop-actions">
         <button class="btn" id="dl-btn" onclick="downloadStrip()" disabled>Developing…</button>
         <button class="btn ghost" onclick="reshoot()">Reshoot</button>
@@ -261,9 +328,9 @@ Relax your face.</div>
     </div>
   </div>
 
-  <canvas id="cv-you" width="480" height="480"></canvas>
+  <canvas id="cv-you"     width="480" height="480"></canvas>
   <canvas id="cv-partner" width="480" height="480"></canvas>
-  <canvas id="cv-render" width="480" height="960"></canvas>
+  <canvas id="cv-render"  width="480" height="960"></canvas>
 
   <script src="script.js"></script>
 </body>

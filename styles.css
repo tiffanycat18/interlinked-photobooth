@@ -1335,3 +1335,147 @@ html, body {
 #cv-render {
   display: none;
 }
+/* ══════════════════════════════════════════════════════════════
+   POSITIONING GUIDE & MODE PICKER
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── MODE PICKER (s-mode) ── */
+#s-mode {
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  overflow-y: auto;
+  overscroll-behavior: none;
+}
+
+/* ── POSITIONING GUIDE (s-guide) ── */
+#s-guide {
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem 4rem;
+  overflow-y: auto;
+  overscroll-behavior: none;
+}
+
+.guide-box {
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+
+.guide-title {
+  font-family: 'Saint Andrews Queen', serif;
+  font-size: 3rem;
+  line-height: 3.4rem;
+  color: var(--ink);
+  margin-bottom: .5rem;
+  margin-top: .4rem;
+}
+
+.guide-sub {
+  font-family: 'Kommuna';
+  font-size: .75rem;
+  color: #a6a5a5;
+  letter-spacing: .04em;
+  margin-bottom: 2.8rem;
+}
+
+.guide-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-align: left;
+  border-top: 1px solid #141414;
+}
+
+.guide-step {
+  display: flex;
+  gap: 1.4rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid #141414;
+  align-items: flex-start;
+}
+
+.guide-step-num {
+  font-family: 'Kommuna';
+  font-size: .65rem;
+  letter-spacing: .25em;
+  color: #333;
+  flex-shrink: 0;
+  padding-top: .15rem;
+  width: 22px;
+}
+
+.guide-step-body { flex: 1; }
+
+.guide-step-title {
+  font-family: 'Kommuna';
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink);
+  margin-bottom: .28rem;
+  line-height: 1.3;
+}
+
+.guide-step-desc {
+  font-family: 'Kommuna';
+  font-size: .68rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* ── AMBIENT TIP (shoot screen, together mode only) ── */
+.shoot-ambient-tip {
+  font-family: 'Kommuna';
+  font-size: .58rem;
+  color: #3a3a3a;
+  letter-spacing: .06em;
+  line-height: 2;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  border-left: 1px solid #1e1e1e;
+  padding-left: .7rem;
+}
+
+/* ── DEVELOPING PROGRESS ── */
+.developing-progress {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  justify-content: center;
+  margin-top: .8rem;
+  margin-bottom: .4rem;
+}
+
+.dev-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #444;
+  flex-shrink: 0;
+  animation: blink 1.6s infinite;
+}
+
+.dev-status {
+  font-family: 'Kommuna';
+  font-size: .7rem;
+  letter-spacing: .2em;
+  color: #555;
+  text-transform: uppercase;
+}
+
+/* ── HORIZONTAL SHOOT LAYOUT — widen side panels for breathing room ── */
+.shoot-inner.is-horiz .shoot-side {
+  width: 220px;
+}
+
+.shoot-inner.is-horiz .shoot-center {
+  max-width: calc(100vw - 440px);
+}
+
+.shoot-inner.is-horiz .cam-stage.horiz {
+  max-width: 680px;
+}
