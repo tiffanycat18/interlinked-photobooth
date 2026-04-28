@@ -1,15 +1,3 @@
-/* ════════════════════════════════════════════════════════════
-   INTERLINKED PHOTOBOOTH — script.js
-   Fixes applied:
-   1. Ambient tip visible in shoot screen (together mode)
-   2. Guide screen synced — guest sees guide, both click ready before shoot
-   3. Background removal race fixed — both photos guaranteed present
-   4. Distance cue added to guide ("waist up, arm's length")
-   5. S.mode reset on reshoot, always routes through mode picker
-   6. Together mode always composites side-by-side (never stacked)
-   7. Separate prompts: CLASSIC duet vs TOGETHER duet
-   ════════════════════════════════════════════════════════════ */
-
 /* ── PROMPTS ── */
 const PROMPTS_SOLO = [
   { act: 'Act I',   text: 'Look into the lens.\nRelax your face.',                       sub: 'Keep it simple'     },
@@ -21,17 +9,17 @@ const PROMPTS_SOLO = [
 // Classic duet — both backgrounds stay, emotional direction only
 const PROMPTS_DUET_CLASSIC = [
   { act: 'Act I',   text: 'Look into the lens.\nImagine them right beside you.',          sub: 'You\'re together'    },
-  { act: 'Act II',  text: 'Shift slightly toward their side.\nKeep your eyes soft.',      sub: 'Close the distance'  },
-  { act: 'Act III', text: 'Look just past the lens.\nToward where they\'d be standing.',  sub: 'See them there'      },
-  { act: 'Act IV',  text: 'Do something small.\nMake it feel like you\'re sharing it.',   sub: 'One last moment'     }
+  { act: 'Act II',  text: 'Look just past the lens.\nToward where they are.',     sub: 'See them there'   },
+  { act: 'Act III', text: 'Make half of something.\nA heart, a shape, anything.',  sub: 'They’ll finish it'      },
+  { act: 'Act IV',  text: 'End with something iconic.\nDo something weird together.\nA pose you’ll remember.',   sub: 'One last moment'     }
 ];
 
 // Together duet — backgrounds removed, position cues matter
 const PROMPTS_DUET_TOGETHER = [
   { act: 'Act I',   text: 'Center yourself in frame.\nWaist up. Same distance as them.', sub: 'Get in position'     },
   { act: 'Act II',  text: 'Angle your body toward their side.\nNot a profile. Just aware of their presence.', sub: 'Turn slightly inward' },
-  { act: 'Act III', text: 'Stay where you are. Look just past the lens.\nToward where they\'d be standing.', sub: 'See them there'      },
-  { act: 'Act IV',  text: 'Keep the angle.\nA half-smile, a tilt. Make this one yours.', sub: 'One last moment'     }
+  { act: 'Act III', text: 'Make half of something.\nA heart, a shape, anything.',  sub: 'They’ll finish it'      },
+  { act: 'Act IV',  text: 'Keep the angle.\nDo something weird together.\nA pose you’ll remember.',   sub: 'End with something iconic.'     }
 ];
 
 function getPrompts() {
@@ -296,7 +284,7 @@ function initHost() {
   S.peer.on('connection', conn => {
     S.conn = conn;
     conn.on('open', () => {
-      setBadge('connected','Partner connected ✦');
+      setBadge('connected','Partner connected');
       conn.on('data', handleData);
       show('s-orient');
     });
@@ -319,17 +307,17 @@ function initGuest() {
   S.peer.on('open', async () => {
     S.conn = S.peer.connect(hostId, { reliable:true });
     S.conn.on('open', () => {
-      setBadge('connected','Connected ✦');
+      setBadge('connected','Connected');
       S.conn.on('data', handleData);
     });
-    S.conn.on('error', () => setBadge('error','Cannot reach host — check code'));
+    S.conn.on('error', () => setBadge('error','Cannot reach host. Check code'));
     await getCamera();
     if (S.localStream) {
       S.call = S.peer.call(hostId, S.localStream);
       S.call.on('stream', remote => showPartnerVid(remote));
     }
   });
-  S.peer.on('error', e => { setBadge('error','Cannot connect — check code'); console.warn(e); });
+  S.peer.on('error', e => { setBadge('error','Cannot connect. Check code'); console.warn(e); });
 }
 
 /* ── Camera ── */
@@ -363,7 +351,7 @@ function showPartnerVid(stream) {
   const v = document.getElementById('vid-partner');
   v.srcObject = stream; v.style.display = 'block';
   document.getElementById('ph-partner').style.display = 'none';
-  document.getElementById('live-badge').textContent = 'Live ✦';
+  document.getElementById('live-badge').textContent = 'Live';
 }
 
 function runSimCam(side) {
@@ -414,7 +402,7 @@ function handleData(d) {
     } else {
       // Partner ready but we haven't clicked yet — update UI
       const btn = document.getElementById('guide-ready-btn');
-      if (btn) btn.textContent = 'Partner ready — click when you are';
+      if (btn) btn.textContent = 'Partner ready. Click when you are';
     }
   }
 

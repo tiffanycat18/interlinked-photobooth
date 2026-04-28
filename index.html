@@ -132,8 +132,8 @@
   <!-- SCREEN 5b: MODE PICKER (duet only, shown every session) -->
   <div id="s-mode" class="screen">
     <div class="sess-box">
-      <div class="sess-eyebrow" style="margin-bottom:2rem">How should it look?</div>
-      <div class="sess-title" style="font-size:2rem;line-height:2.8rem;margin-bottom:2rem">Choose your<br>photo style</div>
+      <div class="sess-eyebrow" style="margin-bottom:1rem">How should it look?</div>
+      <div class="orient-title">Choose your<br>photo style</div>
       <div class="sess-grid" style="margin-bottom:1.8rem">
         <div class="s-card" onclick="pickMode('classic')">
           <div class="sn"></div>
@@ -143,7 +143,7 @@
         <div class="s-card" onclick="pickMode('together')">
           <div class="sn"></div>
           <h2>Together</h2>
-          <p>Backgrounds removed. You're placed on a shared space — like you're actually there.</p>
+          <p>Backgrounds removed. You're placed on a shared space, like you are there together.</p>
         </div>
       </div>
       <div style="text-align:center">
@@ -155,7 +155,7 @@
   <!-- SCREEN 5c: POSITIONING GUIDE (together mode — shown to BOTH people) -->
   <div id="s-guide" class="screen">
     <div class="guide-box">
-      <div class="sess-eyebrow" style="margin-bottom:1.2rem">Before you shoot</div>
+      <div class="sess-eyebrow" style="margin-bottom:2.5rem">Before you shoot</div>
       <div class="guide-title">How to position<br>yourself</div>
       <div class="guide-sub">So it looks like you're standing together</div>
 
@@ -171,14 +171,14 @@
           <div class="guide-step-num">02</div>
           <div class="guide-step-body">
             <div class="guide-step-title">Stand an arm's length from your camera</div>
-            <div class="guide-step-desc">Waist up should be visible. Not just your face — your body language is part of the photo.</div>
+            <div class="guide-step-desc">Waist up should be visible. Not just your face. Your body language is part of the photo.</div>
           </div>
         </div>
         <div class="guide-step">
           <div class="guide-step-num">03</div>
           <div class="guide-step-body">
             <div class="guide-step-title">Center yourself. Same height as them.</div>
-            <div class="guide-step-desc">Head at the same level as your partner's. Room on all sides of you in frame.</div>
+            <div class="guide-step-desc">Head at the same level as your partner's. Equal space around you in frame.</div>
           </div>
         </div>
         <div class="guide-step">
@@ -260,9 +260,11 @@
         <div class="shoot-side shoot-side-right" id="shoot-instructions">
           <!-- Shown only in together mode duet — always visible all 4 acts -->
           <div class="shoot-ambient-tip" id="shoot-ambient-tip" style="display:none">
-            Same distance · centered · heads level<br>
-            Turn slightly inward. Not a profile.<br>
-            Face a light source if you can.
+          Same distance from camera <br> Centered. Heads aligned <br>
+          Plain background. No distractions <br>
+          Waist-up in frame <br>
+          Face a light source <br>
+          Both press ready to begin
           </div>
           <div class="prompt-act" id="p-act">Act I</div>
           <div class="shoot-prompt-sub" id="p-sub">Keep it simple</div>
@@ -280,7 +282,7 @@ Relax your face.</div>
       <div class="shoot-toggle">
         <label class="shoot-toggle-label">
           <input type="checkbox" checked onchange="toggleInstructions(this.checked)">
-          <span>Show instructions</span>
+          <span>Hide instructions</span>
         </label>
       </div>
 
