@@ -1182,6 +1182,7 @@ html, body {
   box-shadow: 0 10px 44px rgba(0, 0, 0, .88), inset 0 1px 0 rgba(255, 255, 255, .55);
 }
 
+
 .drop-slot-body {
   background: #120e0e;
   padding: 10px 6px;
@@ -1489,4 +1490,85 @@ html, body {
 .shoot-inner.is-horiz #shoot-instructions .shoot-prompt-sub,
 .shoot-inner.is-horiz #shoot-instructions .shoot-prompt-txt {
   max-width: 180px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DROP SCREEN 
+   ══════════════════════════════════════════════════════════════ */
+
+#s-drop {
+  overflow: hidden !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+.drop-inner {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  gap: 2rem;
+}
+
+.drop-machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Match home screen chrome exactly — same width, same gradient */
+.drop-chrome {
+  width: 190px;
+  background: linear-gradient(135deg, #aaa 0%, #e8e8e8 18%, #c0c0c0 35%, #f5f5f5 50%, #b8b8b8 65%, #e0e0e0 82%, #a8a8a8 100%);
+  padding: 10px;
+  box-shadow: 0 8px 36px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.55);
+}
+
+/* Machine interior — same as home but ~1.5× taller */
+.drop-slot-body {
+  height: 540px !important;
+  overflow: hidden !important;
+  background: #120e0e;
+  padding: 10px 6px;
+  display: flex;
+  gap: 5px;
+  position: relative;
+}
+
+.drop-channel {
+  flex: 1;
+  position: relative;
+  overflow: hidden !important;
+}
+
+#strip-travel-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-650px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: none;
+}
+
+#strip-hang { display: none !important; }
+.strip-exit-zone { display: none !important; }
+
+.drop-actions {
+  display: flex;
+  gap: .6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.developing-progress {
+  justify-content: center;
 }

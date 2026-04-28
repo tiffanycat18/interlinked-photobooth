@@ -10,16 +10,16 @@ const PROMPTS_SOLO = [
 const PROMPTS_DUET_CLASSIC = [
   { act: 'Act I',   text: 'Look into the lens.\nImagine them right beside you.',          sub: 'You\'re together'    },
   { act: 'Act II',  text: 'Look just past the lens.\nToward where they are.',     sub: 'See them there'   },
-  { act: 'Act III', text: 'Make half of something.\nA heart, a shape, anything.',  sub: 'They’ll finish it'      },
-  { act: 'Act IV',  text: 'End with something iconic.\nDo something weird together.\nA pose you’ll remember.',   sub: 'One last moment'     }
+  { act: 'Act III', text: 'Make half of something.\nA heart, a shape, anything.',  sub: "They'll finish it"      },
+  { act: 'Act IV',  text: "End with something iconic.\nDo something weird together.\nA pose you'll remember.",   sub: 'One last moment'     }
 ];
 
 // Together duet — backgrounds removed, position cues matter
 const PROMPTS_DUET_TOGETHER = [
   { act: 'Act I',   text: 'Center yourself in frame.\nWaist up. Same distance as them.', sub: 'Get in position'     },
   { act: 'Act II',  text: 'Angle your body toward their side.\nNot a profile. Just aware of their presence.', sub: 'Turn slightly inward' },
-  { act: 'Act III', text: 'Make half of something.\nA heart, a shape, anything.',  sub: 'They’ll finish it'      },
-  { act: 'Act IV',  text: 'Keep the angle.\nDo something weird together.\nA pose you’ll remember.',   sub: 'End with something iconic.'     }
+  { act: 'Act III', text: 'Make half of something.\nA heart, a shape, anything.',  sub: "They'll finish it"      },
+  { act: 'Act IV',  text: "Keep the angle.\nDo something weird together.\nA pose you'll remember.",   sub: 'End with something iconic'     }
 ];
 
 function getPrompts() {
@@ -627,54 +627,117 @@ function setDevelopingStatus(msg) {
 
 async function runDrop() {
   show('s-drop');
-  const travelWrap=document.getElementById('strip-travel-wrap');
-  const hang=document.getElementById('strip-hang');
-  travelWrap.innerHTML=''; hang.innerHTML='';
-  travelWrap.classList.remove('drop');
-  travelWrap.style.transition='none';
-  travelWrap.style.transform='translateY(-100%)';
-  hang.classList.remove('show');
 
-  const dlBtn=document.getElementById('dl-btn');
-  dlBtn.disabled=true; dlBtn.textContent='Developing…';
+  const travelWrap = document.getElementById('strip-travel-wrap');
+  const hang       = document.getElementById('strip-hang');
+  travelWrap.innerHTML = '';
+  if (hang) hang.innerHTML = '';
+  travelWrap.classList.remove('drop');
+  travelWrap.style.transition = 'none';
+  travelWrap.style.transform  = 'translateY(-650px)';
+
+  const dlBtn = document.getElementById('dl-btn');
+  dlBtn.disabled = true; dlBtn.textContent = 'Developing…';
 
   const progressArea = document.getElementById('developing-progress');
   if (progressArea) {
-    progressArea.style.display = (S.isDuet && S.mode==='together') ? 'flex' : 'none';
+    progressArea.style.display = (S.isDuet && S.mode === 'together') ? 'flex' : 'none';
   }
 
   setDevelopingStatus('Getting your locations…');
-  const stamp=await getStamp();
-  S.stamp=stamp;
+  const stamp = await getStamp();
+  S.stamp = stamp;
 
-  if (S.isDuet && S.mode==='together') {
+  if (S.isDuet && S.mode === 'together') {
     await buildCompositedFrames();
   } else {
-    S.compositedFrames=[null,null,null,null];
+    S.compositedFrames = [null, null, null, null];
   }
 
   setDevelopingStatus('Developing your strip…');
 
-  const isVert=S.orient==='vert';
-  const slotW=isVert?98:138, slotFH=isVert?86:56;
-  const hangW=isVert?158:198, hangFH=isVert?132:88;
-  travelWrap.innerHTML=makeStrip(slotW,slotFH,stamp);
-  hang.innerHTML=makeStrip(hangW,hangFH,stamp);
+  const isVert = S.orient === 'vert';
+  const slotW  = isVert ? 118 : 158;
+  const slotFH = isVert ? 105 : 70;
+
+  // Build the complete strip inside the machine
+  travelWrap.innerHTML = makeStrip(slotW, slotFH, stamp);
+
+  // End position: bottom of strip aligns with bottom of channel.
+  // channelH - stripH = how far down to push so strip sits at the bottom.
+  const channel  = document.querySelector('.drop-channel');
+  const channelH = channel ? channel.getBoundingClientRect().height : 540;
+  const knownStripH = S.orient === 'vert' ? 490 : 340;
+  const endY = Math.max(0, channelH - knownStripH);
 
   travelWrap.getBoundingClientRect();
+
   requestAnimationFrame(() => {
-    travelWrap.style.transition='transform 4s cubic-bezier(.15,.85,.3,1)';
-    travelWrap.classList.add('drop');
+    travelWrap.style.transition = 'transform 3.8s cubic-bezier(0.95, 0, 0.4, 1)';
+    travelWrap.style.transform  = `translateY(${endY}px)`;
   });
-  setTimeout(() => hang.classList.add('show'), 3800);
+
 
   await Promise.all([
     new Promise(res => setTimeout(res, 4000)),
     renderCanvas()
   ]);
 
-  if (progressArea) progressArea.style.display='none';
-  dlBtn.disabled=false; dlBtn.textContent='Download Strip';
+  if (progressArea) progressArea.style.display = 'none';
+  dlBtn.disabled = false; dlBtn.textContent = 'Download Strip';
+}
+
+/* ── Individual frame HTML strings (no strip-paper wrapper) ── */
+function makeFrameHTMLs(w, fh) {
+  const isVert = S.orient === 'vert';
+  const isDuo  = S.isDuet;
+  const frames = [];
+  for (let i = 0; i < 4; i++) {
+    const comp = S.compositedFrames[i];
+    const y    = S.photosYou[i]     || '';
+    const p    = S.photosPartner[i] || '';
+    const duo  = isDuo && p;
+    let html   = '';
+    if (duo && comp) {
+      html += `<div class="s-frame" style="height:${fh}px;background:#060606;"><img src="${comp}" style="width:100%;height:${fh}px;object-fit:cover;" alt=""></div>`;
+    } else if (duo) {
+      if (isVert) {
+        html += `<div class="s-frame vert-split" style="height:${fh}px">
+          <div class="s-half"><img src="${y}" style="width:100%;height:${fh/2}px;object-fit:cover;filter:grayscale(100%) contrast(1.3) brightness(.9)" alt=""></div>
+          <div class="s-hdiv-h"></div>
+          <div class="s-half"><img src="${p}" style="width:100%;height:${fh/2}px;object-fit:cover;filter:grayscale(100%) contrast(1.3) brightness(.9)" alt=""></div>
+        </div>`;
+      } else {
+        html += `<div class="s-frame" style="height:${fh}px">
+          <div class="s-half" style="height:${fh}px"><img src="${y}" style="height:${fh}px" alt=""></div>
+          <div class="s-hdiv"></div>
+          <div class="s-half" style="height:${fh}px"><img src="${p}" style="height:${fh}px" alt=""></div>
+        </div>`;
+      }
+    } else {
+      html += `<div class="s-frame" style="height:${fh}px"><img class="s-solo-img" src="${y}" style="height:${fh}px;width:100%" alt=""></div>`;
+    }
+    html += `<div style="height:2px;background:#111;width:100%"></div>`;
+    frames.push(html);
+  }
+  return frames;
+}
+
+/* ── Strip footer HTML ── */
+function makeStripFooter(w, stamp) {
+  stamp = stamp || S.stamp || {};
+  const timeDate = [stamp.timeStr, stamp.dateStr].filter(Boolean).join('  ·  ');
+  const location = stamp.locationStr || '';
+  const sc = w / 158;
+  const fTitle = Math.round(6.2*sc), fCode = Math.round(4.8*sc);
+  const fTime  = Math.round(5.7*sc), fLoc  = Math.round(6.5*sc);
+  const pad = Math.round(4*sc), gap = Math.round(2*sc);
+  return `<div style="border-top:.5px solid #ccc;margin-top:2px;padding:${pad*2}px 3px ${pad}px;text-align:center;background:var(--cream,#f5f0e8);display:flex;flex-direction:column;align-items:center;gap:${gap}px;width:${w}px;box-sizing:border-box;">
+    <div style="font-family:'Billa Mount',serif;font-size:${fTitle}px;color:#555;letter-spacing:.04em;line-height:1.5;white-space:nowrap;max-width:100%;">Interlinked Photobooth</div>
+    <div style="font-family:'Kommuna',monospace;font-size:${fCode}px;color:#999;letter-spacing:.2em;white-space:nowrap;">${S.code||'SOLO'}</div>
+    ${timeDate?`<div style="font-family:'Kommuna',monospace;font-size:${fTime}px;font-style:italic;color:#888;white-space:nowrap;max-width:100%;">${timeDate}</div>`:''}
+    ${location?`<div style="font-family:'Saint Andrews Queen',serif;font-size:${fLoc}px;color:#888;white-space:nowrap;">${location}</div>`:''}
+  </div>`;
 }
 
 /* ── Build composited frames ── */
@@ -714,7 +777,7 @@ async function buildCompositedFrames() {
   }
 }
 
-/* ── makeStrip ── */
+/* ── makeStrip (kept for any legacy references) ── */
 function makeStrip(w, fh, stamp) {
   stamp=stamp||S.stamp||{};
   const isVert=S.orient==='vert', isDuo=S.isDuet;
@@ -724,11 +787,9 @@ function makeStrip(w, fh, stamp) {
     const y=S.photosYou[i]||'', p=S.photosPartner[i]||'';
     const duo=isDuo&&p;
     if (duo && comp) {
-      // Together mode: composited frame, always side-by-side
       html+=`<div class="s-frame" style="height:${fh}px;background:#060606;">
         <img src="${comp}" style="width:100%;height:${fh}px;object-fit:cover;" alt=""></div>`;
     } else if (duo) {
-      // Classic mode: original split based on orientation
       if (isVert) {
         html+=`<div class="s-frame vert-split" style="height:${fh}px">
           <div class="s-half"><img src="${y}" style="width:100%;height:${fh/2}px;object-fit:cover;filter:grayscale(100%) contrast(1.3) brightness(.9)" alt=""></div>
@@ -878,8 +939,6 @@ function reshoot() {
   const tw=document.getElementById('strip-travel-wrap');
   const hang=document.getElementById('strip-hang');
   tw.innerHTML=''; hang.innerHTML='';
-  tw.classList.remove('drop'); tw.style.transition='none'; tw.style.transform='translateY(-100%)';
-  hang.classList.remove('show');
   const dlBtn=document.getElementById('dl-btn');
   dlBtn.disabled=true; dlBtn.textContent='Developing…';
   show('s-session');
