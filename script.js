@@ -57,7 +57,7 @@ const S = {
 const REMOVEBG_API_KEY = '3DpHP9nZKa7hVCm153FzNELo'; 
 
 async function removeBackground(sourceCanvas) {
-  if (!REMOVEBG_API_KEY || REMOVEBG_API_KEY === '3DpHP9nZKa7hVCm153FzNELo') {
+  if (!REMOVEBG_API_KEY || REMOVEBG_API_KEY === 'YOUR_REMOVE_BG_API_KEY') {
     console.warn('[remove.bg] No API key — skipping');
     return sourceCanvas;
   }
@@ -342,15 +342,21 @@ async function getCamera() {
 }
 
 function attachMyVid(stream) {
-  const v = document.getElementById('vid-you');
+  // Host goes to left panel, guest goes to right panel
+  const myPanelId    = S.isHost ? 'vid-you'     : 'vid-partner';
+  const myPhId       = S.isHost ? 'ph-you'       : 'ph-partner';
+  const v = document.getElementById(myPanelId);
   v.srcObject = stream; v.style.display = 'block';
-  document.getElementById('ph-you').style.display = 'none';
+  document.getElementById(myPhId).style.display = 'none';
 }
 
 function showPartnerVid(stream) {
-  const v = document.getElementById('vid-partner');
+  // Partner goes to the opposite panel from us
+  const partnerPanelId = S.isHost ? 'vid-partner' : 'vid-you';
+  const partnerPhId    = S.isHost ? 'ph-partner'  : 'ph-you';
+  const v = document.getElementById(partnerPanelId);
   v.srcObject = stream; v.style.display = 'block';
-  document.getElementById('ph-partner').style.display = 'none';
+  document.getElementById(partnerPhId).style.display = 'none';
   document.getElementById('live-badge').textContent = 'Live';
 }
 
@@ -422,9 +428,10 @@ function handleData(d) {
     if (S.youReady) kick();
   }
 
-  // Fix: race condition — ensure we have all photos before advancing
+  // Store partner photo at correct frame index to prevent duplicates
   if (d.type === 'photo') {
-    S.photosPartner.push(d.data);
+    const frameIdx = (typeof d.idx === 'number') ? d.idx : S.photosPartner.length;
+    S.photosPartner[frameIdx] = d.data;
     checkNext();
   }
 }
@@ -553,7 +560,7 @@ function captureMe() {
   }
   const url=cnv.toDataURL('image/jpeg',0.9);
   S.photosYou.push(url);
-  send({ type:'photo', data:url });
+  send({ type:'photo', data:url, idx: S.idx });
   if (!S.isDuet) { S.photosPartner.push(null); setTimeout(advance,380); return; }
   checkNext();
 }
@@ -784,8 +791,11 @@ function makeStrip(w, fh, stamp) {
   let html=`<div class="strip-paper" style="width:${w}px;box-sizing:border-box;overflow:hidden;">`;
   for (let i=0;i<4;i++) {
     const comp=S.compositedFrames[i];
-    const y=S.photosYou[i]||'', p=S.photosPartner[i]||'';
-    const duo=isDuo&&p;
+    // Host always on left, guest always on right
+    const rawY=S.photosYou[i]||'', rawP=S.photosPartner[i]||'';
+    const y = S.isHost ? rawY : rawP;
+    const p = S.isHost ? rawP : rawY;
+    const duo=isDuo&&(rawP||rawY);
     if (duo && comp) {
       html+=`<div class="s-frame" style="height:${fh}px;background:#060606;">
         <img src="${comp}" style="width:100%;height:${fh}px;object-fit:cover;" alt=""></div>`;
@@ -858,6 +868,10 @@ async function renderCanvas() {
     const comp=S.compositedFrames[i];
     const duo=S.isDuet&&S.photosPartner[i];
     ctx.fillStyle='#111'; ctx.fillRect(PAD,fy,FW,FH);
+    // Host always on left, guest always on right
+    const rawYc=S.photosYou[i]||'', rawPc=S.photosPartner[i]||'';
+    const leftPhoto  = S.isHost ? rawYc : rawPc;
+    const rightPhoto = S.isHost ? rawPc : rawYc;
 
     if (duo && comp) {
       // Together: use composited frame (already side-by-side)
@@ -867,19 +881,19 @@ async function renderCanvas() {
       // Classic: split based on orientation
       if (isVert) {
         const hh=Math.floor(FH/2);
-        const [a,b]=await Promise.all([loadImgAsCanvas(S.photosYou[i],FW,hh),loadImgAsCanvas(S.photosPartner[i],FW,hh)]);
+        const [a,b]=await Promise.all([loadImgAsCanvas(leftPhoto,FW,hh),loadImgAsCanvas(rightPhoto,FW,hh)]);
         if(a) ctx.drawImage(a,PAD,fy,FW,hh);
         if(b) ctx.drawImage(b,PAD,fy+hh,FW,hh);
         ctx.fillStyle='#000'; ctx.fillRect(PAD,fy+hh-1,FW,2);
       } else {
         const hw=Math.floor(FW/2);
-        const [a,b]=await Promise.all([loadImgAsCanvas(S.photosYou[i],hw,FH),loadImgAsCanvas(S.photosPartner[i],hw,FH)]);
+        const [a,b]=await Promise.all([loadImgAsCanvas(leftPhoto,hw,FH),loadImgAsCanvas(rightPhoto,hw,FH)]);
         if(a) ctx.drawImage(a,PAD,fy,hw,FH);
         if(b) ctx.drawImage(b,PAD+hw,fy,hw,FH);
         ctx.fillStyle='#000'; ctx.fillRect(PAD+hw-1,fy,2,FH);
       }
     } else if (S.photosYou[i]) {
-      const a=await loadImgAsCanvas(S.photosYou[i],FW,FH);
+      const a=await loadImgAsCanvas(leftPhoto||S.photosYou[i],FW,FH);
       if(a) ctx.drawImage(a,PAD,fy,FW,FH);
     }
   }
