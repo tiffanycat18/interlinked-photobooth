@@ -46,6 +46,7 @@ const S = {
   orient: 'vert',
   stamp: null,
   _advancing: false,
+  _myVidEl: null,
   // Guide sync handshake
   guideReadyYou: false,
   guideReadyPartner: false
@@ -342,15 +343,25 @@ async function getCamera() {
 }
 
 function attachMyVid(stream) {
-  const v = document.getElementById('vid-you');
+  // Host: own feed on left (vid-you = cam-left)
+  // Guest: own feed on right (vid-partner = cam-right), host feed will come in on vid-you (cam-left)
+  const myId = S.isHost ? 'vid-you' : 'vid-partner';
+  const myPh = S.isHost ? 'ph-you'  : 'ph-partner';
+  const v = document.getElementById(myId);
   v.srcObject = stream; v.style.display = 'block';
-  document.getElementById('ph-you').style.display = 'none';
+  document.getElementById(myPh).style.display = 'none';
+  // Store ref so captureMe always knows which element has our stream
+  S._myVidEl = v;
 }
 
 function showPartnerVid(stream) {
-  const v = document.getElementById('vid-partner');
+  // Host: partner goes on right (vid-partner = cam-right)
+  // Guest: partner (host) goes on left (vid-you = cam-left)
+  const partnerId = S.isHost ? 'vid-partner' : 'vid-you';
+  const partnerPh = S.isHost ? 'ph-partner'  : 'ph-you';
+  const v = document.getElementById(partnerId);
   v.srcObject = stream; v.style.display = 'block';
-  document.getElementById('ph-partner').style.display = 'none';
+  document.getElementById(partnerPh).style.display = 'none';
   document.getElementById('live-badge').textContent = 'Live';
 }
 
@@ -470,17 +481,7 @@ function applyOrientToStage() {
   } else {
     stage.classList.add(cameraIsHoriz?'horiz':'vert');
     camRight.style.display=''; syncBar.style.display='';
-    // Guest: swap panels so host is always visually on the left
-    const camLeft  = document.getElementById('cam-left');
-    if (!S.isHost && camLeft && camRight) {
-      // Move cam-right before cam-left in the DOM
-      stage.insertBefore(camRight, camLeft);
-    } else if (S.isHost && camLeft && camRight) {
-      // Ensure host order: cam-left first, cam-right second
-      stage.insertBefore(camLeft, camRight);
-    }
-    document.getElementById('lbl-you').textContent = S.isHost ? 'You' : 'You';
-    document.getElementById('lbl-partner').textContent = 'Partner';
+    document.getElementById('lbl-you').textContent='You';
   }
 }
 
@@ -552,7 +553,7 @@ function doFlash() {
 
 /* ── Capture ── */
 function captureMe() {
-  const vid=document.getElementById('vid-you');
+  const vid = S._myVidEl || document.getElementById('vid-you');
   const cnv=document.getElementById('cv-you');
   cnv.width=480; cnv.height=480;
   const ctx=cnv.getContext('2d');
