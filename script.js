@@ -54,7 +54,7 @@ const S = {
 /* ════════════════════════════════════════════════════════════
    REMOVE.BG
    ════════════════════════════════════════════════════════════ */
-const REMOVEBG_API_KEY = '3DpHP9nZKa7hVCm153FzNELo'; 
+const REMOVEBG_API_KEY = 'xGGoH56ty9jCd4CreBmCj2zc'; 
 
 async function removeBackground(sourceCanvas) {
   if (!REMOVEBG_API_KEY || REMOVEBG_API_KEY === 'YOUR_REMOVE_BG_API_KEY') {
@@ -342,21 +342,15 @@ async function getCamera() {
 }
 
 function attachMyVid(stream) {
-  // Host goes to left panel, guest goes to right panel
-  const myPanelId    = S.isHost ? 'vid-you'     : 'vid-partner';
-  const myPhId       = S.isHost ? 'ph-you'       : 'ph-partner';
-  const v = document.getElementById(myPanelId);
+  const v = document.getElementById('vid-you');
   v.srcObject = stream; v.style.display = 'block';
-  document.getElementById(myPhId).style.display = 'none';
+  document.getElementById('ph-you').style.display = 'none';
 }
 
 function showPartnerVid(stream) {
-  // Partner goes to the opposite panel from us
-  const partnerPanelId = S.isHost ? 'vid-partner' : 'vid-you';
-  const partnerPhId    = S.isHost ? 'ph-partner'  : 'ph-you';
-  const v = document.getElementById(partnerPanelId);
+  const v = document.getElementById('vid-partner');
   v.srcObject = stream; v.style.display = 'block';
-  document.getElementById(partnerPhId).style.display = 'none';
+  document.getElementById('ph-partner').style.display = 'none';
   document.getElementById('live-badge').textContent = 'Live';
 }
 
@@ -476,7 +470,17 @@ function applyOrientToStage() {
   } else {
     stage.classList.add(cameraIsHoriz?'horiz':'vert');
     camRight.style.display=''; syncBar.style.display='';
-    document.getElementById('lbl-you').textContent='You';
+    // Guest: swap panels so host is always visually on the left
+    const camLeft  = document.getElementById('cam-left');
+    if (!S.isHost && camLeft && camRight) {
+      // Move cam-right before cam-left in the DOM
+      stage.insertBefore(camRight, camLeft);
+    } else if (S.isHost && camLeft && camRight) {
+      // Ensure host order: cam-left first, cam-right second
+      stage.insertBefore(camLeft, camRight);
+    }
+    document.getElementById('lbl-you').textContent = S.isHost ? 'You' : 'You';
+    document.getElementById('lbl-partner').textContent = 'Partner';
   }
 }
 
