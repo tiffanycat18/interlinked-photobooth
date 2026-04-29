@@ -558,7 +558,7 @@ function captureMe() {
   cnv.width=480; cnv.height=480;
   const ctx=cnv.getContext('2d');
   if (vid.srcObject && vid.readyState >= 2) {
-    ctx.drawImage(vid, 0, 0, 480, 480);
+    ctx.save(); ctx.scale(-1,1); ctx.drawImage(vid,-480,0,480,480); ctx.restore();
     bw(ctx,cnv);
   } else {
     simFrame(ctx,cnv,S.idx);
