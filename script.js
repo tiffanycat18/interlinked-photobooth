@@ -571,7 +571,7 @@ function captureMe() {
     simFrame(ctx,cnv,S.idx);
   }
   const url=cnv.toDataURL('image/jpeg',0.9);
-  S.photosYou.push(url);
+  S.photosYou[S.idx] = url;
   send({ type:'photo', data:url, idx: S.idx });
   if (!S.isDuet) { S.photosPartner.push(null); setTimeout(advance,380); return; }
   checkNext();
