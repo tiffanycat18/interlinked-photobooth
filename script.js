@@ -55,7 +55,7 @@ const S = {
 /* ════════════════════════════════════════════════════════════
    REMOVE.BG
    ════════════════════════════════════════════════════════════ */
-const REMOVEBG_API_KEY = '3DpHP9nZKa7hVCm153FzNELo'; 
+const REMOVEBG_API_KEY = 'qRDNqjYRBiNbtVPDgGZRCwYK'; 
 
 async function removeBackground(sourceCanvas) {
   if (!REMOVEBG_API_KEY || REMOVEBG_API_KEY === 'YOUR_REMOVE_BG_API_KEY') {
@@ -568,7 +568,7 @@ function captureMe() {
   const cnv=document.getElementById('cv-you');
   cnv.width=480; cnv.height=480;
   const ctx=cnv.getContext('2d');
-  if (vid.srcObject && vid.readyState >= 2) {
+  if (vid.srcObject && vid.readyState >= 1) {
     // Use actual video dimensions for correct aspect ratio, then crop to square
     const vw = vid.videoWidth  || 480;
     const vh = vid.videoHeight || 480;
@@ -583,7 +583,7 @@ function captureMe() {
   const url=cnv.toDataURL('image/jpeg',0.9);
   S.photosYou[S.idx] = url;
   send({ type:'photo', data:url, idx: S.idx });
-  if (!S.isDuet) { S.photosPartner.push(null); setTimeout(advance,380); return; }
+  if (!S.isDuet) { S.photosPartner[S.idx] = null; setTimeout(advance,380); return; }
   checkNext();
 }
 
@@ -686,8 +686,14 @@ async function runDrop() {
   setDevelopingStatus('Developing your strip…');
 
   const isVert = S.orient === 'vert';
-  const slotW  = isVert ? 118 : 158;
-  const slotFH = isVert ? 105 : 70;
+  // Measure actual channel width so strip fits on any screen size
+  const channelEl = document.querySelector('.drop-channel');
+  const channelPx = channelEl ? channelEl.getBoundingClientRect().width : (isVert ? 118 : 158);
+  // On mobile (narrow screens) cap strip width so it fits inside the machine
+  const isMobile = window.innerWidth <= 480;
+  const maxSlotW = isMobile ? (isVert ? 72 : 100) : (isVert ? 118 : 158);
+  const slotW  = Math.min(Math.floor(channelPx), maxSlotW);
+  const slotFH = isVert ? Math.round(slotW * 0.89) : Math.round(slotW * 0.44);
 
   // Build the complete strip inside the machine
   travelWrap.innerHTML = makeStrip(slotW, slotFH, stamp);
@@ -696,7 +702,8 @@ async function runDrop() {
   // channelH - stripH = how far down to push so strip sits at the bottom.
   const channel  = document.querySelector('.drop-channel');
   const channelH = channel ? channel.getBoundingClientRect().height : 540;
-  const knownStripH = S.orient === 'vert' ? 490 : 340;
+  // Strip height = 4 frames + 4 dividers + footer
+  const knownStripH = 4 * slotFH + 4 * 2 + 60;
   const endY = Math.max(0, channelH - knownStripH);
 
   travelWrap.getBoundingClientRect();

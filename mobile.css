@@ -106,87 +106,271 @@
   }
 }
 
-/* ── SHOOT ── */
+/* ════════════════════════════════════════════════
+   SHOOT SCREEN — mobile
+   ════════════════════════════════════════════════ */
 @media (max-width: 480px) {
   #s-shoot {
-    padding: 0.8rem 0.75rem 1rem;
+    padding: 0;
+    overflow: hidden;
   }
 
-  .prompt-blk {
-    padding: 0.65rem 1rem;
+  /* Center everything vertically and horizontally */
+  .shoot-inner {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: calc(env(safe-area-inset-top) + 12px) 0 12px;
+    gap: 0;
+    height: 100dvh;
+    box-sizing: border-box;
   }
 
-  .prompt-txt {
-    font-size: 0.72rem;
+  /* Sync bar */
+  .sync-bar {
+    position: relative;
+    top: auto;
+    font-size: 7px;
+    gap: 0.6rem;
+    letter-spacing: .2em;
+    margin-bottom: 10px;
+    flex-shrink: 0;
   }
 
-  .prompt-sub {
-    font-size: 0.62rem;
+  /* Light bar */
+  .shoot-light-bar {
+    width: 88vw;
+    max-width: 88vw;
+    padding: 5px 7px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+
+  .shoot-light-glow {
+    height: 28px;
+  }
+
+  /* Progress bar */
+  .prog-track {
+    width: 88vw;
+    max-width: 88vw;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+
+  /* Row: camera + instructions stacked */
+  .shoot-row {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  /* Hide eye level — not needed on mobile */
+  .shoot-side-left {
+    display: none !important;
+  }
+
+  /* Camera full width */
+  .shoot-center {
+    width: 88vw !important;
+    max-width: 88vw !important;
+    flex-shrink: 0;
+  }
+
+  .cam-stage.horiz {
+    aspect-ratio: 16/9;
+    max-width: 100% !important;
+  }
+
+  .cam-stage.vert {
+    max-width: 100%;
+    aspect-ratio: 9/14;
+  }
+
+  /* Countdown number */
+  .cd-dig {
+    font-size: 3.5rem;
+  }
+
+  /* Instructions panel below camera */
+  .shoot-side-right {
+    width: 88vw !important;
+    max-width: 88vw !important;
+    align-items: flex-start !important;
+    padding: 0 !important;
+    margin-top: 14px;
+    flex-shrink: 0;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px;
+  }
+
+  /* ACT label and title on same line */
+  .prompt-act {
+    display: inline;
+    font-size: 8px;
+    letter-spacing: .3em;
+    margin-bottom: 0;
+    margin-right: 6px;
+  }
+
+  .shoot-prompt-sub {
+    display: inline;
+    font-size: 11px;
+    margin-bottom: 0;
+    letter-spacing: .1em;
+  }
+
+  /* Wrap act + sub together on one line */
+  .shoot-side-right #shoot-instructions > .prompt-act,
+  .shoot-side-right #shoot-instructions > .shoot-prompt-sub {
+    display: inline;
+  }
+
+  /* Body text on next line */
+  .shoot-prompt-txt {
+    display: block;
+    font-size: 10px;
+    line-height: 1.5;
+    margin-top: 5px;
+    white-space: pre-line;
+  }
+
+  /* Controls below instructions */
+  .shoot-ctrls {
+    margin-top: 16px;
+    width: 88vw;
+    flex-shrink: 0;
   }
 
   .shoot-ctrls .btn {
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 0.5rem 1.4rem;
   }
 
-  .sync-bar {
-    font-size: 8px;
-    gap: 0.9rem;
-    margin-bottom: 0.5rem;
+  /* Toggle */
+  .shoot-toggle {
+    margin-top: 8px;
+    flex-shrink: 0;
   }
 
-  .prog-track {
-    margin-bottom: 0.5rem;
+  /* Ambient tip */
+  .shoot-ambient-tip {
+    font-size: 10px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  /* Horizontal layout overrides — same as vertical on mobile */
+  .shoot-inner.is-horiz .shoot-side {
+    width: 88vw !important;
+  }
+
+  .shoot-inner.is-horiz .shoot-center {
+    max-width: 88vw !important;
+  }
+
+  .shoot-inner.is-horiz .cam-stage.horiz {
+    max-width: 100% !important;
+  }
+
+  .shoot-inner.is-horiz .shoot-side-left {
+    display: none !important;
+  }
+
+  .shoot-inner.is-horiz .shoot-side-right {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .shoot-inner.is-horiz #shoot-instructions .prompt-act,
+  .shoot-inner.is-horiz #shoot-instructions .shoot-prompt-sub,
+  .shoot-inner.is-horiz #shoot-instructions .shoot-prompt-txt {
+    max-width: none !important;
   }
 }
 
-/* ── DROP / STRIP ── */
+/* ════════════════════════════════════════════════
+   RESULT / DROP SCREEN — fit on mobile
+   ════════════════════════════════════════════════ */
 @media (max-width: 480px) {
   #s-drop {
-    padding: 0 0.75rem 1.5rem;
+    overflow: hidden !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .drop-inner {
+    height: 100dvh !important;
+    gap: 0.8rem !important;
+    justify-content: center !important;
+    padding: 0 !important;
   }
 
   .drop-machine {
-    padding-top: 1rem;
+    padding-top: 0 !important;
+    flex-shrink: 0;
   }
 
+  /* Chrome same width as home machine */
   .drop-chrome {
-    width: 188px;
+    width: 158px !important;
   }
 
+  /* Machine body — strip is rendered at channel width dynamically via JS
+     so we just need the body tall enough for the animation */
   .drop-slot-body {
-    height: 110px;
+    height: calc(100dvh - 320px) !important;
+    max-height: 340px !important;
+    overflow: hidden !important;
   }
 
-  .strip-exit-zone {
-    width: 188px;
+  /* Force strip to never exceed channel width */
+  #strip-travel-wrap {
+    max-width: 100% !important;
   }
 
-  #strip-hang {
-    width: 140px;
+  #strip-travel-wrap .strip-paper {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #strip-hang { display: none !important; }
+  .strip-exit-zone { display: none !important; }
+
+  .developing-progress {
+    margin-top: 4px;
+    margin-bottom: 0;
   }
 
   .drop-actions {
-    margin-top: 1.2rem;
-    gap: 0.4rem;
+    margin-top: 0 !important;
+    gap: 0.3rem;
+    flex-direction: column;
+    align-items: center;
+    width: 90vw;
   }
 
   .drop-actions .btn {
-    font-size: 1.4rem;
+    font-size: 0.85rem;
     padding: 0.5rem 1.2rem;
+    margin: 0.15rem;
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
   }
-}
 
-@media (max-width: 480px) {
-  #s-session,
-  #s-waiting,
-  #s-join,
-  #s-orient,
-  #s-shoot,
-  #s-drop {
-    background: #000;
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+  .drop-machine .c-plate {
+    margin-top: 0;
+    padding: 8px 16px 7px;
+  }
+
+  .drop-machine .c-plate-title {
+    font-size: 16px;
   }
 }
 
@@ -219,5 +403,10 @@
 
   .sess-title {
     font-size: 1.7rem;
+  }
+
+  .drop-slot-body {
+    height: 220px !important;
+    max-height: 220px !important;
   }
 }
