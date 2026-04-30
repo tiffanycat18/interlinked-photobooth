@@ -55,7 +55,7 @@ const S = {
 /* ════════════════════════════════════════════════════════════
    REMOVE.BG
    ════════════════════════════════════════════════════════════ */
-const REMOVEBG_API_KEY = 'xGGoH56ty9jCd4CreBmCj2zc'; 
+const REMOVEBG_API_KEY = 'qRDNqjYRBiNbtVPDgGZRCwYK'; 
 
 async function removeBackground(sourceCanvas) {
   if (!REMOVEBG_API_KEY || REMOVEBG_API_KEY === 'YOUR_REMOVE_BG_API_KEY') {
