@@ -734,7 +734,7 @@ function makeFrameHTMLs(w, fh) {
         </div>`;
       }
     } else {
-      html += `<div class="s-frame" style="height:${fh}px"><img class="s-solo-img" src="${y}" style="height:${fh}px;width:100%" alt=""></div>`;
+      html += `<div class="s-frame" style="height:${fh}px"><img class="s-solo-img" src="${rawY}" style="height:${fh}px;width:100%" alt=""></div>`;
     }
     html += `<div style="height:2px;background:#111;width:100%"></div>`;
     frames.push(html);
@@ -807,7 +807,7 @@ function makeStrip(w, fh, stamp) {
     const rawY=S.photosYou[i]||'', rawP=S.photosPartner[i]||'';
     const y = S.isHost ? rawY : rawP;
     const p = S.isHost ? rawP : rawY;
-    const duo=isDuo&&(rawP||rawY);
+    const duo=isDuo&&rawP&&rawY;
     if (duo && comp) {
       html+=`<div class="s-frame" style="height:${fh}px;background:#060606;">
         <img src="${comp}" style="width:100%;height:${fh}px;object-fit:cover;" alt=""></div>`;
@@ -827,7 +827,7 @@ function makeStrip(w, fh, stamp) {
       }
     } else {
       html+=`<div class="s-frame" style="height:${fh}px">
-        <img class="s-solo-img" src="${y}" style="height:${fh}px;width:100%" alt=""></div>`;
+        <img class="s-solo-img" src="${rawY}" style="height:${fh}px;width:100%" alt=""></div>`;
     }
     html+=`<div style="height:2px;background:#111;width:100%"></div>`;
   }
