@@ -55,7 +55,7 @@ const S = {
 /* ════════════════════════════════════════════════════════════
    REMOVE.BG
    ════════════════════════════════════════════════════════════ */
-const REMOVEBG_API_KEY = 'qRDNqjYRBiNbtVPDgGZRCwYK'; 
+const REMOVEBG_API_KEY = 'xGGoH56ty9jCd4CreBmCj2zc'; 
 
 async function removeBackground(sourceCanvas) {
   if (!REMOVEBG_API_KEY || REMOVEBG_API_KEY === 'YOUR_REMOVE_BG_API_KEY') {
@@ -702,8 +702,10 @@ async function runDrop() {
   // channelH - stripH = how far down to push so strip sits at the bottom.
   const channel  = document.querySelector('.drop-channel');
   const channelH = channel ? channel.getBoundingClientRect().height : 540;
-  // Strip height = 4 frames + 4 dividers + footer
+  // Strip height = 4 frames + 4 dividers (2px each) + footer (~60px)
   const knownStripH = 4 * slotFH + 4 * 2 + 60;
+  // endY: strip bottom aligns with channel bottom
+  // strip starts at top=0, so endY = channelH - stripH
   const endY = Math.max(0, channelH - knownStripH);
 
   travelWrap.getBoundingClientRect();
@@ -768,7 +770,7 @@ function makeStripFooter(w, stamp) {
   const fTitle = Math.round(6.2*sc), fCode = Math.round(4.8*sc);
   const fTime  = Math.round(5.7*sc), fLoc  = Math.round(6.5*sc);
   const pad = Math.round(4*sc), gap = Math.round(2*sc);
-  return `<div style="border-top:.5px solid #ccc;margin-top:2px;padding:${pad*2}px 3px ${pad}px;text-align:center;background:var(--cream,#f5f0e8);display:flex;flex-direction:column;align-items:center;gap:${gap}px;width:${w}px;box-sizing:border-box;">
+  return `<div style="border-top:.5px solid #ccc;margin-top:2px;padding:${pad*2}px 3px ${pad}px;text-align:center;background:var(--cream,#f5f0e8);display:flex;flex-direction:column;align-items:center;gap:${gap}px;width:100%;box-sizing:border-box;">
     <div style="font-family:'Billa Mount',serif;font-size:${fTitle}px;color:#555;letter-spacing:.04em;line-height:1.5;white-space:nowrap;max-width:100%;">Interlinked Photobooth</div>
     <div style="font-family:'Kommuna',monospace;font-size:${fCode}px;color:#999;letter-spacing:.2em;white-space:nowrap;">${S.code||'SOLO'}</div>
     ${timeDate?`<div style="font-family:'Kommuna',monospace;font-size:${fTime}px;font-style:italic;color:#888;white-space:nowrap;max-width:100%;">${timeDate}</div>`:''}
@@ -855,7 +857,7 @@ function makeStrip(w, fh, stamp) {
   const sc=w/158;
   const fTitle=Math.round(6.2*sc),fCode=Math.round(4.8*sc),fTime=Math.round(5.7*sc),fLoc=Math.round(6.5*sc);
   const pad=Math.round(4*sc),gap=Math.round(2*sc);
-  html+=`<div style="border-top:.5px solid #ccc;margin-top:2px;padding:${pad*2}px 3px ${pad}px;text-align:center;background:var(--cream,#f5f0e8);display:flex;flex-direction:column;align-items:center;gap:${gap}px;width:${w}px;box-sizing:border-box;">
+  html+=`<div style="border-top:.5px solid #ccc;margin-top:2px;padding:${pad*2}px 3px ${pad}px;text-align:center;background:var(--cream,#f5f0e8);display:flex;flex-direction:column;align-items:center;gap:${gap}px;width:100%;box-sizing:border-box;">
     <div style="font-family:'Billa Mount',serif;font-size:${fTitle}px;color:#555;letter-spacing:.04em;line-height:1.5;white-space:nowrap;max-width:100%;">Interlinked Photobooth</div>
     <div style="font-family:'Kommuna',monospace;font-size:${fCode}px;color:#999;letter-spacing:.2em;white-space:nowrap;">${S.code||'SOLO'}</div>
     ${timeDate?`<div style="font-family:'Kommuna',monospace;font-size:${fTime}px;font-style:italic;color:#888;white-space:nowrap;max-width:100%;">${timeDate}</div>`:''}

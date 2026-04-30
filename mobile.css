@@ -187,6 +187,7 @@
   .cam-stage.vert {
     max-width: 100%;
     aspect-ratio: 9/14;
+    max-height: 44vh !important;
   }
 
   /* Countdown number */
@@ -323,8 +324,8 @@
   /* Machine body — strip is rendered at channel width dynamically via JS
      so we just need the body tall enough for the animation */
   .drop-slot-body {
-    height: calc(100dvh - 320px) !important;
-    max-height: 340px !important;
+    height: 320px !important;
+    max-height: 320px !important;
     overflow: hidden !important;
   }
 
@@ -341,6 +342,8 @@
 
   #strip-hang { display: none !important; }
   .strip-exit-zone { display: none !important; }
+
+
 
   .developing-progress {
     margin-top: 4px;
