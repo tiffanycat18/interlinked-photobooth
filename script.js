@@ -343,10 +343,11 @@ async function getCamera() {
 }
 
 function attachMyVid(stream) {
-  // Host: own feed on left (vid-you = cam-left)
-  // Guest: own feed on right (vid-partner = cam-right), host feed will come in on vid-you (cam-left)
-  const myId = S.isHost ? 'vid-you' : 'vid-partner';
-  const myPh = S.isHost ? 'ph-you'  : 'ph-partner';
+  // Solo or host: own feed on left (vid-you = cam-left)
+  // Guest in duet: own feed on right (vid-partner = cam-right)
+  const isGuest = S.isDuet && !S.isHost;
+  const myId = isGuest ? 'vid-partner' : 'vid-you';
+  const myPh = isGuest ? 'ph-partner'  : 'ph-you';
   const v = document.getElementById(myId);
   v.srcObject = stream; v.style.display = 'block';
   document.getElementById(myPh).style.display = 'none';
@@ -558,7 +559,13 @@ function captureMe() {
   cnv.width=480; cnv.height=480;
   const ctx=cnv.getContext('2d');
   if (vid.srcObject && vid.readyState >= 2) {
-    ctx.save(); ctx.scale(-1,1); ctx.drawImage(vid,-480,0,480,480); ctx.restore();
+    // Use actual video dimensions for correct aspect ratio, then crop to square
+    const vw = vid.videoWidth  || 480;
+    const vh = vid.videoHeight || 480;
+    const side = Math.min(vw, vh);
+    const sx = (vw - side) / 2;
+    const sy = (vh - side) / 2;
+    ctx.save(); ctx.scale(-1,1); ctx.drawImage(vid, sx, sy, side, side, -480, 0, 480, 480); ctx.restore();
     bw(ctx,cnv);
   } else {
     simFrame(ctx,cnv,S.idx);
@@ -573,8 +580,8 @@ function captureMe() {
 function checkNext() {
   const fi=S.idx;
   // Both photos for this frame must be present before advancing
-  if (S.photosYou.length <= fi) return;
-  if (S.isDuet && S.photosPartner.length <= fi) return;
+  if (!S.photosYou[fi]) return;
+  if (S.isDuet && !S.photosPartner[fi]) return;
   if (S._advancing) return;
   S._advancing=true;
   setTimeout(advance,380);
