@@ -348,9 +348,11 @@ function attachMyVid(stream) {
   const isGuest = S.isDuet && !S.isHost;
   const myId = isGuest ? 'vid-partner' : 'vid-you';
   const myPh = isGuest ? 'ph-partner'  : 'ph-you';
+  // Hide BOTH placeholders to be safe
+  document.getElementById('ph-you').style.display = 'none';
+  document.getElementById('ph-partner').style.display = 'none';
   const v = document.getElementById(myId);
   v.srcObject = stream; v.style.display = 'block';
-  document.getElementById(myPh).style.display = 'none';
   // Store ref so captureMe always knows which element has our stream
   S._myVidEl = v;
 }
@@ -459,7 +461,15 @@ async function beginShoot() {
   if (tipEl) tipEl.style.display = (S.isDuet && S.mode === 'together') ? 'block' : 'none';
 
   if (!S.localStream) await getCamera();
-  else attachMyVid(S.localStream);
+  else {
+    attachMyVid(S.localStream);
+    // Re-show partner video if already connected
+    if (S.isDuet) {
+      const isGuest = !S.isHost;
+      const partnerVid = document.getElementById(isGuest ? 'vid-you' : 'vid-partner');
+      if (partnerVid && partnerVid.srcObject) partnerVid.style.display = 'block';
+    }
+  }
 }
 
 function applyOrientToStage() {
@@ -779,14 +789,16 @@ async function buildCompositedFrames() {
       if (!youSrc || !partnerSrc) { S.compositedFrames.push(null); continue; }
 
       const [cA,cB]=await Promise.all([
-        loadImgAsCanvas(youSrc, FW/2, FH),      // each person gets half the width
+        loadImgAsCanvas(youSrc, FW/2, FH),
         loadImgAsCanvas(partnerSrc, FW/2, FH)
       ]);
       if (cA && cB) {
         const [cutA,cutB]=await Promise.all([removeBackground(cA),removeBackground(cB)]);
         setDevelopingStatus(`Compositing… ${i+1} / 4`);
-        // compositeTogether always places side-by-side
-        const comp=compositeTogether(cutA,cutB,FW,FH);
+        // Host always left, guest always right
+        const leftCanvas  = S.isHost ? cutA : cutB;
+        const rightCanvas = S.isHost ? cutB : cutA;
+        const comp=compositeTogether(leftCanvas,rightCanvas,FW,FH);
         S.compositedFrames.push(comp.toDataURL('image/jpeg',0.92));
       } else { S.compositedFrames.push(null); }
     } catch(e) {
